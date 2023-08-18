@@ -3,7 +3,8 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:yummy_quest/routes/get_pages.dart';
 import 'package:yummy_quest/routes/named_routes.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 
