@@ -1,14 +1,22 @@
 import 'package:get/route_manager.dart';
-import 'package:yummy_quest/app/presentation/screens/main_screen/main_screen.dart';
-import 'package:yummy_quest/app/presentation/screens/main_screen/main_screen_binding.dart';
+import 'package:yummy_quest/app/presentation/screens/main_indexed_stack_screen/main_indexed_stack_screen.dart';
+import 'package:yummy_quest/app/presentation/screens/main_indexed_stack_screen/main_indexed_stack_screen_binding.dart';
+import 'package:yummy_quest/app/presentation/screens/my_page_screen/my_page_screen_binding.dart';
+import 'package:yummy_quest/app/presentation/screens/yummy_deal_screen/yummy_deal_screen_binding.dart';
+import 'package:yummy_quest/app/presentation/screens/yummy_quest_screen/yummy_quest_screen_binding.dart';
 import 'package:yummy_quest/routes/named_routes.dart';
 
 abstract class GetPages {
   static get pages => [
     GetPage(
       name: RouteNames.MAIN,
-      page: () => const MainScreen(),
-      binding: MainScreenBinding(),
+      page: () => const MainIndexedStackScreen(),
+      bindings: [
+        MainIndexedStackScreenBinding(),
+        YummyQuestScreenBinding(),
+        YummyDealScreenBinding(),
+        MyPageScreenBinding(),
+      ],
     )
   ];
 }
