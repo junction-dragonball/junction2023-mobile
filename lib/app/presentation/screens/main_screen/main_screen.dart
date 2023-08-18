@@ -1,7 +1,7 @@
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:notification_permissions/notification_permissions.dart';
+// import 'package:notification_permissions/notification_permissions.dart';
 import 'main_screen_controller.dart';
 
 class MainScreen extends GetView<MainScreenController> {
@@ -14,19 +14,6 @@ class MainScreen extends GetView<MainScreenController> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          ElevatedButton(
-            onPressed: () async {
-              Future<PermissionStatus> permissionStatus =
-                  NotificationPermissions.requestNotificationPermissions(
-                iosSettings: const NotificationSettingsIos(
-                  sound: true,
-                  badge: true,
-                  alert: true,
-                ),
-              );
-            },
-            child: Text('노티 구너한 확인'),
-          ),
           ElevatedButton(
             onPressed: () async {
               try {

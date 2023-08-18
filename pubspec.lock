@@ -115,14 +115,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.9.1"
-  notification_permissions:
-    dependency: "direct main"
-    description:
-      name: notification_permissions
-      sha256: e62e7fbd4b64941764778fc957224567aff10cdc8b0227046bd0a4b9db7b47a6
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.6.1"
   path:
     dependency: transitive
     description:
@@ -202,4 +194,3 @@ packages:
     version: "0.1.4-beta"
 sdks:
   dart: ">=3.1.0-185.0.dev <4.0.0"
-  flutter: ">=1.12.0"
