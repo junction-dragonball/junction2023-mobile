@@ -1,6 +1,7 @@
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:yummy_quest/app/domain/use_cases/request_screen_time_access_use_case.dart';
 // import 'package:notification_permissions/notification_permissions.dart';
 import 'main_screen_controller.dart';
 
@@ -16,13 +17,8 @@ class MainScreen extends GetView<MainScreenController> {
         children: [
           ElevatedButton(
             onPressed: () async {
-              try {
-                const platform = MethodChannel('screenTime');
-                final bool result = await platform.invokeMethod('getScreenTimeAccess');
-                print(result);
-              } on PlatformException catch (e) {
-                print("Failed to get battery level: '${e.message}'.");
-              }
+              final a = await RequestScreenTimeAccessUseCase()();
+              print(a);
             },
             child: Text('Native Channel 호출'),
           ),
