@@ -97,13 +97,13 @@ class YummyQuestScreen extends GetView<YummyQuestScreenController> {
                     child: Row(
                       children: [
                         Hero(
-                          tag: quest.id,
+                          tag: 'quest' + quest.id,
                           child: Container(
                             height: 64,
                             width: 64,
                             margin: EdgeInsets.only(right: 16),
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(32),
+                              shape: BoxShape.circle,
                               image: DecorationImage(
                                 image: NetworkImage(
                                   quest.thumbnailUrl,

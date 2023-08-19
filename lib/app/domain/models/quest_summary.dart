@@ -17,6 +17,9 @@ class QuestSummary {
     required this.status,
   });
 
+  bool get isNew => id == '1';
+  bool get isAd => title.startsWith('(Ad)');
+
   factory QuestSummary.fromMap(Map<String, dynamic> map) {
     return QuestSummary(
       id: map['id'].toString(),
