@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -22,30 +20,27 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle.dark,
-        child: ClipRRect(
-          child: BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 16, sigmaY: 16),
-            child: SafeArea(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  children: [
-                    IconButtonPixel(
-                      priority: ButtonPriority.secondary,
-                      customButtonColor: ColorPixel.dim.shade200,
-                      icon: IconName.PREV,
-                      onPress: Get.back,
-                    ),
-                    Spacer(),
-                    IconButtonPixel(
-                      priority: ButtonPriority.secondary,
-                      customButtonColor: ColorPixel.dim.shade200,
-                      icon: IconName.SHARE,
-                      onPress: onShare,
-                    ),
-                  ],
+        child: Container(
+          padding: EdgeInsets.only(top: Get.mediaQuery.padding.top),
+          color: ColorPixel.white,
+          child: Container(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: [
+                IconButtonPixel(
+                  priority: ButtonPriority.secondary,
+                  customButtonColor: ColorPixel.dim.shade200,
+                  icon: IconName.PREV,
+                  onPress: Get.back,
                 ),
-              ),
+                Spacer(),
+                IconButtonPixel(
+                  priority: ButtonPriority.secondary,
+                  customButtonColor: ColorPixel.dim.shade200,
+                  icon: IconName.SHARE,
+                  onPress: onShare,
+                ),
+              ],
             ),
           ),
         ));
