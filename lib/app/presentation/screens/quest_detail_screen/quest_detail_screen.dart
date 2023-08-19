@@ -93,42 +93,44 @@ class QuestDetailScreen extends GetView<QuestDetailScreenController> {
                         ),
                       ],
                     ),
-                    const SizedBox(height: 48),
+                    const SizedBox(height: 80),
                     // TODO: delete
                     const SizedBox(height: 100),
                   ],
                 );
               }),
             ),
-            GetBuilder<QuestDetailScreenController>(
-              builder: (controller) {
-                return Align(
-                  alignment: Alignment.bottomCenter,
-                  child: GapColumn(
-                    gap: 8,
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      if (!controller.isLoading)
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16),
-                          child: Container(
-                            padding: const EdgeInsets.all(8),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(6),
-                              color: MyColors.PaleYellow,
-                            ),
-                            child: Text(
-                              '${controller.quest.inProgressCount} peoples are already in progress 🔥',
-                              textAlign: TextAlign.center,
-                            ),
+            GetBuilder<QuestDetailScreenController>(builder: (controller) {
+              return Align(
+                alignment: Alignment.bottomCenter,
+                child: GapColumn(
+                  gap: 8,
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    if (!controller.isLoading)
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: Container(
+                          padding: const EdgeInsets.all(8),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(6),
+                            color: MyColors.PaleYellow,
+                          ),
+                          child: Text(
+                            '${controller.quest.inProgressCount} peoples are already in progress 🔥',
+                            textAlign: TextAlign.center,
                           ),
                         ),
-                      if (!controller.isLoading)
+                      ),
+                    if (!controller.isLoading)
                       Container(
-                        color: Colors.transparent,
-                        padding: const EdgeInsets.symmetric(horizontal: 8.0).copyWith(
-                          bottom: 16 + Get.window.padding.bottom / Get.window.devicePixelRatio,
+                        color: Colors.white,
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0)
+                            .copyWith(
+                          bottom: 16 +
+                              Get.window.padding.bottom /
+                                  Get.window.devicePixelRatio,
                         ),
                         child: GestureDetector(
                           onTap: () {
@@ -138,12 +140,16 @@ class QuestDetailScreen extends GetView<QuestDetailScreenController> {
                             height: 56,
                             padding: const EdgeInsets.all(8),
                             decoration: BoxDecoration(
-                              color: controller.isNotStarted ? MyColors.Black : MyColors.Blue,
+                              color: controller.isNotStarted
+                                  ? MyColors.Black
+                                  : MyColors.Blue,
                               borderRadius: BorderRadius.circular(12),
                             ),
                             child: Center(
                               child: Text(
-                                controller.isNotStarted ? 'Accept Quest!' : 'Get Reward!',
+                                controller.isNotStarted
+                                    ? 'Accept Quest!'
+                                    : 'Get Reward!',
                                 style: MyTextStyles.Medium_w600.white,
                                 textAlign: TextAlign.center,
                               ),
@@ -151,11 +157,10 @@ class QuestDetailScreen extends GetView<QuestDetailScreenController> {
                           ),
                         ),
                       ),
-                    ],
-                  ),
-                );
-              }
-            ),
+                  ],
+                ),
+              );
+            }),
           ],
         ),
       ),
@@ -221,12 +226,15 @@ class QuestDetailScreen extends GetView<QuestDetailScreenController> {
               left: 0,
               child: Center(
                 child: AnimatedScale(
-                  scale: !controller.isLoading && !controller.isCompleted ? 1 : 0,
+                  scale:
+                      !controller.isLoading && !controller.isCompleted ? 1 : 0,
                   duration: Duration(milliseconds: 300),
                   child: !controller.isLoading
                       ? Container(
                           decoration: BoxDecoration(
-                            color: controller.isCompleted ? MyColors.Green : MyColors.Orange,
+                            color: controller.isCompleted
+                                ? MyColors.Green
+                                : MyColors.Orange,
                             borderRadius: BorderRadius.circular(24),
                             border: Border.all(
                               color: MyColors.White,
@@ -234,7 +242,8 @@ class QuestDetailScreen extends GetView<QuestDetailScreenController> {
                               strokeAlign: 1,
                             ),
                           ),
-                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 10),
                           child: GapRow(
                             gap: 8,
                             mainAxisSize: MainAxisSize.min,
