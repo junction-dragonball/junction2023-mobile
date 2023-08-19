@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:yummy_quest/app/presentation/screens/main_indexed_stack_screen/main_indexed_stack_screen_controller.dart';
 import 'package:yummy_quest/app/domain/models/quest_summary.dart';
+import 'package:yummy_quest/app/presentation/screens/main_indexed_stack_screen/main_indexed_stack_screen_controller.dart';
 import 'package:yummy_quest/app/presentation/widgets/chip.dart';
 import 'package:yummy_quest/app/presentation/widgets/gap_layout.dart';
 import 'package:yummy_quest/core/themes/color_theme.dart';
 import 'package:yummy_quest/core/themes/text_theme.dart';
+import 'package:yummy_quest/pixels/components/button.dart';
+import 'package:yummy_quest/pixels/styles/color.dart';
+import 'package:yummy_quest/pixels/styles/letter.dart';
 
 import 'yummy_quest_screen_controller.dart';
 
@@ -83,14 +86,40 @@ class YummyQuestScreen extends GetView<YummyQuestScreenController> {
         final questSummaries = controller.questSummaries;
         return ListView.builder(
           shrinkWrap: true,
-          itemCount: questSummaries.length,
+          itemCount: questSummaries.length + 1,
           itemBuilder: (BuildContext ctx, int index) {
-            final quest = questSummaries[index];
-            return QuestWidget(
-              quest: quest,
-              onTap: () {
-                controller.onQuestTap(index);
-              },
+            if (index < questSummaries.length) {
+              final quest = questSummaries[index];
+              return QuestWidget(
+                quest: quest,
+                onTap: () {
+                  controller.onQuestTap(index);
+                },
+              );
+            }
+
+            return Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Padding(
+                  padding: EdgeInsets.fromLTRB(40, 40, 40, 24),
+                  child: Text(
+                    'This is the end of Quest List\nGet notification for the new quests',
+                    style: LetterPixel.small.regular.withColor(ColorPixel.dim.shade400),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.fromLTRB(64, 0, 64, 48),
+                  child: ButtonPixel(
+                    customButtonColor: ColorPixel.dim.shade500,
+                    customContentColor: ColorPixel.dim.shade200,
+                    priority: ButtonPriority.secondary,
+                    label: 'Notify New Quests!',
+                    onPress: () {},
+                  ),
+                ),
+              ],
             );
           },
         );
