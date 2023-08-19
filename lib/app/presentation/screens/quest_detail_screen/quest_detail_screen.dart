@@ -6,6 +6,7 @@ import 'package:yummy_quest/app/presentation/widgets/gap_layout.dart';
 import 'package:yummy_quest/app/presentation/widgets/global_widget.dart';
 import 'package:yummy_quest/core/themes/color_theme.dart';
 import 'package:yummy_quest/core/themes/text_theme.dart';
+import 'package:yummy_quest/pixels/elements/icon.dart';
 import 'package:yummy_quest/pixels/styles/color.dart';
 import 'package:yummy_quest/pixels/styles/letter.dart';
 
@@ -62,9 +63,13 @@ class QuestDetailScreen extends GetView<QuestDetailScreenController> {
                                     gap: 8,
                                     children: [
                                       GapRow(
-                                        gap: 8,
+                                        gap: 16,
                                         children: [
-                                          Icon(Icons.flag_outlined),
+                                          IconPixel(
+                                            name: IconName.FLAG,
+                                            size: 24,
+                                            color: ColorPixel.dim.shade900,
+                                          ),
                                           Text('Instruction', style: MyTextStyles.Medium_w600),
                                         ],
                                       ),
@@ -97,7 +102,7 @@ class QuestDetailScreen extends GetView<QuestDetailScreenController> {
                             Text('Quest duration', style: MyTextStyles.Large_w600),
                             if (!isLoading)
                               _ContentsBox(
-                                iconWidget: Icon(Icons.calendar_today_outlined),
+                                icon: IconName.PERIOD,
                                 title: controller.quest.period == 7
                                     ? '1 Week'
                                     : '${controller.quest.period} Day(s)',
@@ -115,7 +120,7 @@ class QuestDetailScreen extends GetView<QuestDetailScreenController> {
                             Text('You can achieve with...', style: MyTextStyles.Large_w600),
                             if (!isLoading)
                               _ContentsBox(
-                                iconWidget: Icon(Icons.photo_size_select_actual_outlined),
+                                icon: controller.quest.verifyMethod.icon,
                                 title: controller.quest.verifyMethod.title,
                                 content: controller.quest.verifyMethod.content,
                               ),
@@ -316,12 +321,12 @@ class QuestDetailScreen extends GetView<QuestDetailScreenController> {
 }
 
 class _ContentsBox extends StatelessWidget {
-  final Widget iconWidget;
+  final IconName icon;
   final String title;
   final String content;
 
   const _ContentsBox({
-    required this.iconWidget,
+    required this.icon,
     required this.title,
     required this.content,
     Key? key,
@@ -330,7 +335,7 @@ class _ContentsBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.fromLTRB(16, 16, 16, 20),
+      padding: const EdgeInsets.fromLTRB(12, 16, 16, 20),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
         color: MyColors.Gray50,
@@ -341,11 +346,18 @@ class _ContentsBox extends StatelessWidget {
           GapRow(
             gap: 8,
             children: [
-              iconWidget,
+              IconPixel(
+                name: icon,
+                size: 24,
+                color: ColorPixel.dim.shade900,
+              ),
               Text(title, style: MyTextStyles.Medium_w600),
             ],
           ),
-          Text(content, style: MyTextStyles.Small_w400.Dim600),
+          Padding(
+            padding: const EdgeInsets.only(left: 4),
+            child: Text(content, style: MyTextStyles.Small_w400.Dim600),
+          ),
         ],
       ),
     );

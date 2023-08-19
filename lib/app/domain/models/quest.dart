@@ -1,4 +1,5 @@
 import 'package:intl/intl.dart';
+import 'package:yummy_quest/pixels/elements/icon.dart';
 
 class Quest {
   final String id;
@@ -77,16 +78,32 @@ class Quest {
 }
 
 enum VerifyMethod {
-  location('Location', 'If you open the app, when you go to the specified location for the quest, it will be achieved!'),
-  uploadPhoto('Upload Photo', 'Our AI will analyze your photo and automatically check whether you have completed the quest.'),
-  autoDetection('Auto Detection', 'Yummy Quest app will automatically detect whether you have completed the quest.'),
-  time('Time', 'When the quest timer ends, it will be achieved! Be careful not to stop the timer.');
+  location(
+    'Location',
+    'If you open the app, when you go to the specified location for the quest, it will be achieved!',
+    IconName.LOCATION,
+  ),
+  uploadPhoto(
+      'Upload Photo',
+      'Our AI will analyze your photo and automatically check whether you have completed the quest.',
+      IconName.ADD_PHOTO),
+  autoDetection(
+    'Auto Detection',
+    'Yummy Quest app will automatically detect whether you have completed the quest.',
+    IconName.MOBILE,
+  ),
+  time(
+    'Time',
+    'When the quest timer ends, it will be achieved! Be careful not to stop the timer.',
+    IconName.TIME,
+  );
 
   // TODO: iconPath 추가?
   final String title;
   final String content;
+  final IconName icon;
 
-  const VerifyMethod(this.title, this.content);
+  const VerifyMethod(this.title, this.content, this.icon);
 }
 
 const Map<String, VerifyMethod> verifyMethodMapper = {
@@ -95,4 +112,3 @@ const Map<String, VerifyMethod> verifyMethodMapper = {
   'auto verification': VerifyMethod.autoDetection,
   'Time verification': VerifyMethod.time,
 };
-
