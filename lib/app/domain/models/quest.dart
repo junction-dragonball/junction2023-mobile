@@ -2,7 +2,6 @@ class Quest {
   final String id;
   final String title;
   final String thumbnailUrl;
-  final String mainImageUrl;
   final int difficulty;
   final String shortDescription;
   final String description;
@@ -17,7 +16,6 @@ class Quest {
     required this.id,
     required this.title,
     required this.thumbnailUrl,
-    required this.mainImageUrl,
     required this.difficulty,
     required this.shortDescription,
     required this.description,
@@ -34,7 +32,6 @@ class Quest {
       id: map['id'].toString(),
       title: map['title'] as String,
       thumbnailUrl: map['thumbnailUrl'] as String,
-      mainImageUrl: map['mainImageUrl'] as String,
       difficulty: map['difficulty'] as int,
       shortDescription: map['shortDescription'] as String,
       description: map['description'] as String,
