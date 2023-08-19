@@ -231,7 +231,7 @@ class QuestDetailScreen extends GetView<QuestDetailScreenController> {
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 16.0),
             child: Hero(
-              tag: 'quest' + controller.questSummary.id,
+              tag: controller.heroTag,
               child: Container(
                 clipBehavior: Clip.hardEdge,
                 width: 200,

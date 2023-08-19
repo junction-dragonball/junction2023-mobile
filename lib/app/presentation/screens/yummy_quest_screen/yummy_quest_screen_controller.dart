@@ -43,7 +43,10 @@ class YummyQuestScreenController extends GetxController {
   void onQuestTap(int index) {
     Get.toNamed(
       RouteNames.Maker(nextRoute: RouteNames.QUEST_DETAIL),
-      arguments: questSummaries[index],
+      arguments: {
+        'questSummary': questSummaries[index],
+        'heroSuffix': 'first',
+      },
     );
   }
 }

@@ -40,7 +40,7 @@ class InProgressQuestScreen extends GetView<InProgressQuestScreenController> {
                   child: Row(
                     children: [
                       Hero(
-                        tag: 'quest' + questSummary.id,
+                        tag: 'quest' + questSummary.id + 'second',
                         child: Container(
                           height: 64,
                           width: 64,

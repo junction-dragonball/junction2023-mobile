@@ -38,7 +38,8 @@ class QuestDetailScreenController extends GetxController {
 
   bool get isCompleted => quest.status == "COMPLETED";
 
-  final QuestSummary questSummary = Get.arguments as QuestSummary;
+  final questSummary = (Get.arguments as Map<String, dynamic>)['questSummary'] as QuestSummary;
+  String get heroTag => 'quest${questSummary.id}${(Get.arguments as Map<String, dynamic>)['heroSuffix']}';
   late Quest quest;
 
   bool isLoading = true;

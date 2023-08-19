@@ -104,7 +104,7 @@ class YummyQuestScreen extends GetView<YummyQuestScreenController> {
                         child: Row(
                           children: [
                             Hero(
-                              tag: 'quest' + quest.id,
+                              tag: 'quest' + quest.id + 'first',
                               child: Container(
                                 height: 64,
                                 width: 64,
