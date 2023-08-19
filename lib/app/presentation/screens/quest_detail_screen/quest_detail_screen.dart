@@ -271,6 +271,7 @@ class QuestDetailScreen extends GetView<QuestDetailScreenController> {
                 child: AnimatedScale(
                   scale: !controller.isLoading ? 1 : 0,
                   duration: Duration(milliseconds: 300),
+                  curve: Curves.easeOutBack,
                   child: !controller.isLoading
                       ? Container(
                           decoration: BoxDecoration(
