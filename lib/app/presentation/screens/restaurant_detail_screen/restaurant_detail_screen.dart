@@ -247,7 +247,9 @@ class RestaurantDetailScreen extends GetView<RestaurantDetailScreenController> {
                   color: Colors.white,
                   padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
                   child: GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      controller.onAcceptRestaurantButtonTap(context);
+                    },
                     child: SafeArea(
                       top: false,
                       child: Container(
