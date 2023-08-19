@@ -151,9 +151,7 @@ class RestaurantDetailScreen extends GetView<RestaurantDetailScreenController> {
                                               image: DecorationImage(
                                                 fit: BoxFit.cover,
                                                 image: NetworkImage(
-                                                  controller
-                                                      .restaurant.thumbnailUrl,
-                                                ),
+                                                    menu.thumnailUrl),
                                               ),
                                             ),
                                           ),
