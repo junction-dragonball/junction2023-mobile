@@ -151,9 +151,7 @@ class RestaurantDetailScreen extends GetView<RestaurantDetailScreenController> {
                                               image: DecorationImage(
                                                 fit: BoxFit.cover,
                                                 image: NetworkImage(
-                                                  controller
-                                                      .restaurant.thumbnailUrl,
-                                                ),
+                                                    menu.thumnailUrl),
                                               ),
                                             ),
                                           ),
@@ -190,7 +188,19 @@ class RestaurantDetailScreen extends GetView<RestaurantDetailScreenController> {
                               style: MyTextStyles.Large_w600,
                             ),
                             const SizedBox(height: 16),
-                            // todo 이미지 넣기
+                            Container(
+                              height: 218,
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12),
+                                image: DecorationImage(
+                                  fit: BoxFit.cover,
+                                  image: NetworkImage(
+                                    controller.restaurant.mapImageUrl,
+                                  ),
+                                ),
+                              ),
+                            ),
                             const SizedBox(height: 8),
                             GestureDetector(
                                 onTap: () {
@@ -235,7 +245,9 @@ class RestaurantDetailScreen extends GetView<RestaurantDetailScreenController> {
                   color: Colors.white,
                   padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
                   child: GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      controller.onAcceptRestaurantButtonTap(context);
+                    },
                     child: SafeArea(
                       top: false,
                       child: Container(

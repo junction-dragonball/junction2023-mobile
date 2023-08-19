@@ -118,7 +118,7 @@ class QuestDetailScreen extends GetView<QuestDetailScreenController> {
                         ),
                       ],
                     ),
-                    const SizedBox(height: 48),
+                    const SizedBox(height: 80),
                     // TODO: delete
                     const SizedBox(height: 100),
                   ],
@@ -186,7 +186,6 @@ class QuestDetailScreen extends GetView<QuestDetailScreenController> {
               } else {
                 return SizedBox.shrink();
               }
-
             }),
           ],
         ),
@@ -258,7 +257,9 @@ class QuestDetailScreen extends GetView<QuestDetailScreenController> {
                   child: !controller.isLoading
                       ? Container(
                           decoration: BoxDecoration(
-                            color: controller.isCompleted ? MyColors.Green : MyColors.Orange,
+                            color: controller.isCompleted
+                                ? MyColors.Green
+                                : MyColors.Orange,
                             borderRadius: BorderRadius.circular(24),
                             border: Border.all(
                               color: MyColors.White,
@@ -266,7 +267,8 @@ class QuestDetailScreen extends GetView<QuestDetailScreenController> {
                               strokeAlign: 1,
                             ),
                           ),
-                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 10),
                           child: GapRow(
                             gap: 8,
                             mainAxisSize: MainAxisSize.min,

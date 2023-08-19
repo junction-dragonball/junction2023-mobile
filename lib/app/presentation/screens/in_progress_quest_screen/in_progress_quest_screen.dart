@@ -1,11 +1,13 @@
-import 'dart:ui';
-
-import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:yummy_quest/app/presentation/widgets/chip.dart';
 import 'package:yummy_quest/app/presentation/widgets/gap_layout.dart';
 import 'package:yummy_quest/core/themes/color_theme.dart';
 import 'package:yummy_quest/core/themes/text_theme.dart';
+import 'package:yummy_quest/pixels/components/button.dart';
+import 'package:yummy_quest/pixels/elements/icon.dart';
+import 'package:yummy_quest/pixels/styles/color.dart';
+import 'package:yummy_quest/pixels/styles/letter.dart';
 
 // ignore: unused_import
 import 'in_progress_quest_screen_controller.dart';
@@ -15,10 +17,8 @@ class InProgressQuestScreen extends GetView<InProgressQuestScreenController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: MyColors.Black,
-      appBar: _CustomAppBar(),
-      body: ListView.builder(
+    Widget buildOnGoingQuests() {
+      return ListView.builder(
         itemCount: controller.questSummaries.length,
         itemBuilder: (BuildContext ctx, int index) {
           final questSummary = controller.questSummaries[index];
@@ -98,8 +98,23 @@ class InProgressQuestScreen extends GetView<InProgressQuestScreenController> {
             ),
           );
         },
-      ),
-    );
+      );
+    }
+
+    return Scaffold(
+        backgroundColor: MyColors.Black,
+        appBar: _CustomAppBar(),
+        body: controller.questSummaries.length == 0
+            ? Container(
+                width: double.infinity,
+                margin: EdgeInsets.symmetric(vertical: 40),
+                child: Text(
+                  'There is no ongoing quest.',
+                  style: LetterPixel.small.regular.withColor(ColorPixel.dim.shade400),
+                  textAlign: TextAlign.center,
+                ),
+              )
+            : buildOnGoingQuests());
   }
 }
 
@@ -113,20 +128,11 @@ class _CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         padding: const EdgeInsets.all(8.0),
         child: Row(
           children: [
-            Container(
-              height: 48,
-              width: 48,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                color: MyColors.Dim600,
-              ),
-              child: IconButton(
-                onPressed: Get.back,
-                icon: Icon(
-                  Icons.arrow_back,
-                  color: MyColors.White,
-                ),
-              ),
+            IconButtonPixel(
+              customButtonColor: ColorPixel.dim.shade600,
+              customContentColor: ColorPixel.white,
+              icon: IconName.PREV,
+              onPress: Get.back,
             ),
             Spacer(),
             Text('Ongoing Quests 🏎️', style: MyTextStyles.Medium_w800.white),
