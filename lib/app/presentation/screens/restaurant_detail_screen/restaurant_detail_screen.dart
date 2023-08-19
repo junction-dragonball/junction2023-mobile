@@ -20,6 +20,8 @@ class RestaurantDetailScreen extends GetView<RestaurantDetailScreenController> {
                   child: GetBuilder<RestaurantDetailScreenController>(
                       builder: (controller) {
                     final isLoading = controller.isLoading;
+                    if (controller.isLoading)
+                      return CircularProgressIndicator();
                     return Column(
                       children: [
                         AspectRatio(
@@ -85,7 +87,6 @@ class RestaurantDetailScreen extends GetView<RestaurantDetailScreenController> {
                                     child: GapColumn(
                                       gap: 8,
                                       children: [
-                                        Text('보상'),
                                         GapRow(
                                           gap: 4,
                                           children: [
@@ -112,9 +113,26 @@ class RestaurantDetailScreen extends GetView<RestaurantDetailScreenController> {
                                 ),
                               ],
                             ),
-                            controller.isLoading
-                                ? CircularProgressIndicator()
-                                : Text(controller.restaurant.kakaoMapId),
+                            Text('메뉴'),
+                            ...controller.restaurant.menus
+                                .map((menu) => Row(children: [
+                                      Container(
+                                        height: 120,
+                                        width: 120,
+                                        decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                            image: NetworkImage(
+                                              controller
+                                                  .restaurant.thumbnailUrl,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Column(children: [
+                                        Text(menu.name),
+                                        Text(menu.price.toString()),
+                                      ]),
+                                    ]))
                           ],
                         ),
                         const SizedBox(height: 48),
