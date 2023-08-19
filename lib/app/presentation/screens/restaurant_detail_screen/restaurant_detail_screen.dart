@@ -26,8 +26,6 @@ class RestaurantDetailScreen extends GetView<RestaurantDetailScreenController> {
                 child: SingleChildScrollView(
                   child: GetBuilder<RestaurantDetailScreenController>(
                       builder: (controller) {
-                    if (controller.isLoading)
-                      return CircularProgressIndicator();
                     return Column(children: [
                       Container(
                           padding: EdgeInsets.fromLTRB(8, 16, 8, 24),

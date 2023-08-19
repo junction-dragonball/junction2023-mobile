@@ -49,15 +49,15 @@ class RestaurantDetailScreenController extends GetxController {
 
   final String restaurantId = Get.arguments[0] as String;
   final int minutes = Get.arguments[1] as int;
+  final Restaurant initialRestaurant = Get.arguments[2] as Restaurant;
   late final Restaurant restaurant;
-
-  bool isLoading = true;
 
   @override
   void onInit() async {
     super.onInit();
     print(restaurantId);
     print('hasdadsl');
+    this.restaurant = initialRestaurant;
     await _fetchRestaurantsUseCase(onSuccess: (restaurants) {
       print('hello');
       this.restaurant =
@@ -66,35 +66,6 @@ class RestaurantDetailScreenController extends GetxController {
     }, onFail: () {
       print('실패');
     });
-    isLoading = false;
     update();
-  }
-}
-
-class _CustomListTile extends StatelessWidget {
-  final int index;
-  final String text;
-
-  const _CustomListTile({
-    required this.index,
-    required this.text,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return GapRow(
-      gap: 4,
-      children: [
-        CircleAvatar(
-          backgroundColor: Colors.grey,
-          radius: 20,
-          child: Text(
-            (index + 1).toString(),
-            style: TextStyle(color: Colors.black),
-          ),
-        ),
-        Expanded(child: Text(text)),
-      ],
-    );
   }
 }
