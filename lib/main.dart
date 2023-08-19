@@ -20,6 +20,7 @@ class MyApp extends StatelessWidget {
         bottomSheetTheme: BottomSheetThemeData(
           backgroundColor: Colors.transparent,
         ),
+        fontFamily: 'Pretendard',
       ),
       getPages: GetPages.pages,
       initialRoute: RouteNames.SPLASH,
