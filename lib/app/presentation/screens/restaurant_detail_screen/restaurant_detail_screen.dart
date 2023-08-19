@@ -1,7 +1,11 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:yummy_quest/app/presentation/screens/restaurant_detail_screen/restaurant_detail_screen_controller.dart';
 import 'package:yummy_quest/app/presentation/widgets/gap_layout.dart';
+import 'package:yummy_quest/app/presentation/widgets/global_widget.dart';
+import 'package:yummy_quest/core/themes/color_theme.dart';
+import 'package:yummy_quest/core/themes/text_theme.dart';
 
 class RestaurantDetailScreen extends GetView<RestaurantDetailScreenController> {
   const RestaurantDetailScreen({Key? key}) : super(key: key);
@@ -11,6 +15,8 @@ class RestaurantDetailScreen extends GetView<RestaurantDetailScreenController> {
     return GestureDetector(
       child: Scaffold(
         key: controller.scaffoldKey,
+        appBar: CustomAppBar(),
+        extendBodyBehindAppBar: true,
         body: Stack(
           children: [
             Positioned.fill(
@@ -19,107 +25,122 @@ class RestaurantDetailScreen extends GetView<RestaurantDetailScreenController> {
                 child: SingleChildScrollView(
                   child: GetBuilder<RestaurantDetailScreenController>(
                       builder: (controller) {
-                    final isLoading = controller.isLoading;
                     if (controller.isLoading)
                       return CircularProgressIndicator();
-                    return Column(
-                      children: [
-                        AspectRatio(
-                          aspectRatio: 1,
-                          child: SizedBox(
-                            width: double.infinity,
-                            child: Stack(
-                              children: [
-                                Center(
-                                  child: isLoading
-                                      ? Text('loading')
-                                      : Hero(
-                                          tag: controller.restaurant.id,
-                                          child: Image.network(controller
-                                              .restaurant.thumbnailUrl),
-                                        ),
-                                ),
-                                Positioned(
-                                  left: 8,
-                                  top: 8,
-                                  child: IconButton(
-                                    onPressed: Get.back,
-                                    icon: Icon(Icons.arrow_back_ios),
+                    return Column(children: [
+                      Container(
+                        padding: EdgeInsets.fromLTRB(8, 16, 8, 24),
+                        child: Container(
+                            clipBehavior: Clip.hardEdge,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(16),
+                            ),
+                            child: Hero(
+                              tag: controller.restaurant.id + 'restaurant',
+                              child: Image.network(
+                                  controller.restaurant.thumbnailUrl),
+                            )),
+                      ),
+                      GapRow(
+                        gap: 4,
+                        padding: EdgeInsets.only(left: 24),
+                        children: [
+                          Container(
+                            child: GapRow(
+                                padding:
+                                    const EdgeInsets.only(left: 5, right: 8),
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                gap: 4,
+                                children: [
+                                  Icon(
+                                    Icons.star,
+                                    size: 16,
+                                    color: MyColors.White,
                                   ),
-                                ),
-                                Positioned(
-                                  left: 20,
-                                  bottom: 20,
-                                  child: Container(
-                                    color: Colors.grey,
-                                    padding: const EdgeInsets.all(4),
-                                    child: Text(
-                                        // TODO: Restaurant 객체로 바꿔야함
-                                        'NEW!'
-                                        // restaurant.status.text,
-                                        ),
-                                  ),
-                                ),
-                              ],
+                                  Text(
+                                    controller.restaurant.rating.toString(),
+                                    style: MyTextStyles.Small_w800.copyWith(
+                                        color: MyColors.White),
+                                  )
+                                ]),
+                            height: 24,
+                            decoration: BoxDecoration(
+                              color: MyColors.Red,
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(4),
+                              ),
                             ),
                           ),
-                        ),
-                        const SizedBox(width: 24),
-                        GapColumn(
-                          padding: const EdgeInsets.symmetric(
-                            vertical: 16,
-                            horizontal: 16,
+                          Container(
+                            child: GapRow(
+                                padding:
+                                    const EdgeInsets.only(left: 5, right: 8),
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                gap: 4,
+                                children: [
+                                  Icon(
+                                    Icons.location_on,
+                                    size: 16,
+                                    color: MyColors.Dim600,
+                                  ),
+                                  Text(
+                                    controller.minutes.toString() + " min",
+                                    style: MyTextStyles.Small_w800.copyWith(
+                                        color: MyColors.Dim600),
+                                  )
+                                ]),
+                            height: 24,
+                            decoration: BoxDecoration(
+                              color: MyColors.Gray100,
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(4),
+                              ),
+                            ),
                           ),
-                          gap: 12,
+                        ],
+                      ),
+                      const SizedBox(height: 16),
+                      GapColumn(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 24,
+                          ),
+                          gap: 0,
                           children: [
                             Text(
-                              isLoading
-                                  ? 'loading'
-                                  : controller.restaurant.name,
-                              style: TextStyle(fontSize: 36),
+                              controller.restaurant.name,
+                              style: MyTextStyles.Giant_w800,
                             ),
-                            Row(
+                            const SizedBox(height: 12),
+                            Text(
+                              controller.restaurant.name,
+                              style: MyTextStyles.Medium_w400,
+                            ),
+                            const SizedBox(height: 24),
+                            Divider(
+                              thickness: 1,
+                              color: MyColors.Gray100,
+                            ),
+                            const SizedBox(height: 24),
+                            Text(
+                              'Featured Plates',
+                              style: MyTextStyles.Large_w600,
+                            ),
+                          ]),
+                      const SizedBox(height: 16),
+                      SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: GapRow(
+                              padding: EdgeInsets.symmetric(horizontal: 24),
+                              gap: 24,
                               children: [
-                                Expanded(
-                                  child: Container(
-                                    color: Colors.grey,
-                                    padding: const EdgeInsets.all(8),
-                                    child: GapColumn(
-                                      gap: 8,
-                                      children: [
-                                        GapRow(
-                                          gap: 4,
-                                          children: [
-                                            CircleAvatar(
-                                              radius: 10,
-                                              backgroundColor: Colors.pink,
-                                            ),
-                                            Text(isLoading
-                                                ? '000'
-                                                : controller.restaurant.rating
-                                                    .toString()),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(width: 8),
-                                Expanded(
-                                  child: Container(
-                                    color: Colors.grey,
-                                    padding: const EdgeInsets.all(8),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Text('메뉴'),
-                            ...controller.restaurant.menus
-                                .map((menu) => Row(children: [
+                                ...controller.restaurant.menus.map((menu) =>
+                                    GapColumn(gap: 0, children: [
                                       Container(
-                                        height: 120,
-                                        width: 120,
+                                        height: 200,
+                                        width: 200,
                                         decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(12),
                                           image: DecorationImage(
                                             image: NetworkImage(
                                               controller
@@ -128,16 +149,62 @@ class RestaurantDetailScreen extends GetView<RestaurantDetailScreenController> {
                                           ),
                                         ),
                                       ),
-                                      Column(children: [
-                                        Text(menu.name),
-                                        Text(menu.price.toString()),
-                                      ]),
+                                      SizedBox(height: 12),
+                                      Text(menu.name,
+                                          overflow: TextOverflow.ellipsis,
+                                          style:
+                                              MyTextStyles.Medium_w600.copyWith(
+                                                  color: MyColors.Gray900)),
+                                      SizedBox(height: 4),
+                                      Text(
+                                          '₩ ' +
+                                              NumberFormat.decimalPattern()
+                                                  .format(menu.price),
+                                          style:
+                                              MyTextStyles.Small_w400.copyWith(
+                                                  color: MyColors.Dim600)),
                                     ]))
-                          ],
-                        ),
-                        const SizedBox(height: 48),
-                      ],
-                    );
+                              ])),
+                      GapColumn(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 24,
+                          ),
+                          gap: 0,
+                          children: [
+                            const SizedBox(height: 32),
+                            Divider(
+                              thickness: 1,
+                              color: MyColors.Gray100,
+                            ),
+                            const SizedBox(height: 24),
+                            Text(
+                              'Location',
+                              style: MyTextStyles.Large_w600,
+                            ),
+                            const SizedBox(height: 16),
+                            // todo 이미지 넣기
+                            const SizedBox(height: 8),
+                            Container(
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12),
+                                color: MyColors.Dim200,
+                              ),
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 16,
+                                horizontal: 8,
+                              ),
+                              child: Text(
+                                'Navigate to the Store',
+                                style: MyTextStyles.Medium_w600.copyWith(
+                                  color: MyColors.Black,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                            const SizedBox(height: 120),
+                          ]),
+                    ]);
                   }),
                 ),
               ),
@@ -145,29 +212,34 @@ class RestaurantDetailScreen extends GetView<RestaurantDetailScreenController> {
             Align(
               alignment: Alignment.bottomCenter,
               child: Container(
-                width: double.infinity,
-                color: Colors.transparent,
-                padding: const EdgeInsets.all(24.0),
-                child: GestureDetector(
-                  onTap: () {
-                    controller.onAcceptRestaurantButtonTap(context);
-                  },
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 24,
-                      horizontal: 24,
-                    ),
-                    color: Colors.black,
-                    child: Text(
-                      '퀘스트 수락',
-                      style: TextStyle(
-                        color: Colors.white,
+                  width: double.infinity,
+                  color: Colors.white,
+                  padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
+                  child: GestureDetector(
+                    onTap: () {
+                      controller.onAcceptRestaurantButtonTap(context);
+                    },
+                    child: SafeArea(
+                      top: false,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12),
+                          color: MyColors.Blue,
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 16,
+                          horizontal: 8,
+                        ),
+                        child: Text(
+                          'Buy Coupon',
+                          style: MyTextStyles.Medium_w600.copyWith(
+                            color: MyColors.White,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
                       ),
-                      textAlign: TextAlign.center,
                     ),
-                  ),
-                ),
-              ),
+                  )),
             ),
           ],
         ),

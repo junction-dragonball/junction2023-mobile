@@ -47,7 +47,8 @@ class RestaurantDetailScreenController extends GetxController {
     );
   }
 
-  final String restaurantId = Get.arguments as String;
+  final String restaurantId = Get.arguments[0] as String;
+  final int minutes = Get.arguments[1] as int;
   late final Restaurant restaurant;
 
   bool isLoading = true;

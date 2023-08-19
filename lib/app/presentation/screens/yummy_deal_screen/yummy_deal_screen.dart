@@ -48,11 +48,13 @@ class YummyDealScreen extends GetView<YummyDealScreenController> {
         itemCount: controller.restaurants.length,
         itemBuilder: (BuildContext ctx, int index) {
           final restaurant = controller.restaurants[index];
+
+          final minutes = 3 + random.nextInt(20);
           return Padding(
             padding: const EdgeInsets.only(bottom: 2.0),
             child: GestureDetector(
                 onTap: () {
-                  controller.onRestaurantTap(index);
+                  controller.onRestaurantTap(index, minutes);
                 },
                 child: Container(
                   clipBehavior: Clip.hardEdge,
@@ -66,7 +68,7 @@ class YummyDealScreen extends GetView<YummyDealScreenController> {
                   child: Row(
                     children: [
                       Hero(
-                        tag: restaurant.id,
+                        tag: restaurant.id + 'restaurant',
                         child: Container(
                           height: 160,
                           width: 120,
@@ -156,9 +158,7 @@ class YummyDealScreen extends GetView<YummyDealScreenController> {
                                             color: MyColors.Dim600,
                                           ),
                                           Text(
-                                            (3 + random.nextInt(20))
-                                                    .toString() +
-                                                " min",
+                                            (minutes).toString() + " min",
                                             style:
                                                 MyTextStyles.Tiny_w800.copyWith(
                                                     color: MyColors.Dim600),

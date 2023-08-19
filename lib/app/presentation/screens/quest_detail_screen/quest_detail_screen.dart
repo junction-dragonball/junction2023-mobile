@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:yummy_quest/app/presentation/widgets/chip.dart';
 import 'package:yummy_quest/app/presentation/widgets/gap_layout.dart';
+import 'package:yummy_quest/app/presentation/widgets/global_widget.dart';
 import 'package:yummy_quest/core/themes/color_theme.dart';
 import 'package:yummy_quest/core/themes/text_theme.dart';
 import 'quest_detail_screen_controller.dart';
@@ -16,14 +17,16 @@ class QuestDetailScreen extends GetView<QuestDetailScreenController> {
     return GestureDetector(
       child: Scaffold(
         key: controller.scaffoldKey,
-        appBar: _CustomAppBar(),
+        appBar: CustomAppBar(),
         extendBodyBehindAppBar: true,
         body: Stack(
           children: [
             SingleChildScrollView(
-              padding:
-                  EdgeInsets.only(top: 64 + Get.window.padding.top / Get.window.devicePixelRatio),
-              child: GetBuilder<QuestDetailScreenController>(builder: (controller) {
+              padding: EdgeInsets.only(
+                  top: 64 +
+                      Get.window.padding.top / Get.window.devicePixelRatio),
+              child: GetBuilder<QuestDetailScreenController>(
+                  builder: (controller) {
                 final isLoading = controller.isLoading;
                 return Column(
                   children: [
@@ -39,7 +42,8 @@ class QuestDetailScreen extends GetView<QuestDetailScreenController> {
                           gap: 12,
                           children: [
                             Text(
-                              controller.questSummary.title.replaceAll('(Ad)', ''),
+                              controller.questSummary.title
+                                  .replaceAll('(Ad)', ''),
                               style: MyTextStyles.Giant_w800,
                             ),
                             controller.isLoading
@@ -57,7 +61,8 @@ class QuestDetailScreen extends GetView<QuestDetailScreenController> {
                         GapColumn(
                           gap: 16,
                           children: [
-                            Text('Quest duration', style: MyTextStyles.Large_w600),
+                            Text('Quest duration',
+                                style: MyTextStyles.Large_w600),
                             if (!isLoading)
                               _ContentsBox(
                                 iconWidget: Icon(Icons.calendar_today_outlined),
@@ -75,10 +80,12 @@ class QuestDetailScreen extends GetView<QuestDetailScreenController> {
                         GapColumn(
                           gap: 16,
                           children: [
-                            Text('You can achieve with...', style: MyTextStyles.Large_w600),
+                            Text('You can achieve with...',
+                                style: MyTextStyles.Large_w600),
                             if (!isLoading)
                               _ContentsBox(
-                                iconWidget: Icon(Icons.photo_size_select_actual_outlined),
+                                iconWidget: Icon(
+                                    Icons.photo_size_select_actual_outlined),
                                 title: controller.quest.verifyMethod.title,
                                 content: controller.quest.verifyMethod.content,
                               ),
@@ -117,8 +124,11 @@ class QuestDetailScreen extends GetView<QuestDetailScreenController> {
                     ),
                   Container(
                     color: Colors.transparent,
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0).copyWith(
-                      bottom: 16 + Get.window.padding.bottom / Get.window.devicePixelRatio,
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 8.0).copyWith(
+                      bottom: 16 +
+                          Get.window.padding.bottom /
+                              Get.window.devicePixelRatio,
                     ),
                     child: GestureDetector(
                       onTap: () {
@@ -272,54 +282,4 @@ class _ContentsBox extends StatelessWidget {
       ),
     );
   }
-}
-
-class _CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const _CustomAppBar({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return ClipRRect(
-      child: BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 16, sigmaY: 16),
-        child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                Container(
-                  height: 48,
-                  width: 48,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    color: MyColors.Dim200,
-                  ),
-                  child: IconButton(
-                    onPressed: Get.back,
-                    icon: Icon(Icons.arrow_back),
-                  ),
-                ),
-                Spacer(),
-                Container(
-                  height: 48,
-                  width: 48,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    color: MyColors.Dim200,
-                  ),
-                  child: IconButton(
-                    onPressed: Get.back,
-                    icon: Icon(Icons.ios_share_outlined),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  @override
-  Size get preferredSize => Size.fromHeight(64);
 }
