@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:yummy_quest/app/presentation/widgets/gap_layout.dart';
+import 'package:yummy_quest/core/themes/color_theme.dart';
+import 'package:yummy_quest/core/themes/text_theme.dart';
 import 'yummy_deal_screen_controller.dart';
 
 class YummyDealScreen extends GetView<YummyDealScreenController> {
@@ -9,7 +11,35 @@ class YummyDealScreen extends GetView<YummyDealScreenController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('yummy_deal')),
+      backgroundColor: MyColors.Black,
+      appBar: AppBar(
+          toolbarHeight: 64,
+          backgroundColor: Colors.transparent,
+          title: Text('Places 🗺️',
+              style: MyTextStyles.Giant_w800.copyWith(color: MyColors.White)),
+          actions: [
+            Center(
+              child: Container(
+                height: 48,
+                padding: const EdgeInsets.symmetric(horizontal: 12),
+                decoration: BoxDecoration(
+                  color: MyColors.Dim600,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Row(children: [
+                  Icon(Icons.circle),
+                  SizedBox(width: 4),
+                  Center(
+                      child: Text(
+                    '480',
+                    style: MyTextStyles.Medium_w800.copyWith(
+                        color: MyColors.White),
+                  )),
+                ]),
+              ),
+            ),
+            SizedBox(width: 8),
+          ]),
       body: ListView.builder(
         shrinkWrap: true,
         itemCount: controller.restaurants.length,
