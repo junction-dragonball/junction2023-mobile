@@ -67,6 +67,7 @@ flutter:
   assets:
     - assets/
     - assets/icons/
+    - assets/images/
 
   fonts:
     - family: pretendard
@@ -89,6 +90,9 @@ flutter:
           weight: 200
         - asset: assets/fonts/Pretendard-Thin.otf
           weight: 100
+    - family: YummyIcon
+      fonts:
+        - asset: assets/fonts/YummyIcon.ttf
 
 flutter_native_splash:
   android: true
