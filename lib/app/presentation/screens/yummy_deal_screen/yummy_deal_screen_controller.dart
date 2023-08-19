@@ -32,7 +32,7 @@ class YummyDealScreenController extends GetxController {
   void onRestaurantTap(int index) {
     Get.toNamed(
       RouteNames.Maker(nextRoute: RouteNames.RESTAURANT_DETAIL),
-      arguments: restaurants[index],
+      arguments: restaurants[index].id,
     );
   }
 }

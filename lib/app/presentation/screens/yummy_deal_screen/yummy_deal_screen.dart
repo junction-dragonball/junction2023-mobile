@@ -23,10 +23,19 @@ class YummyDealScreen extends GetView<YummyDealScreenController> {
               },
               child: Row(
                 children: [
-                  Container(
-                    height: 120,
-                    width: 120,
-                    color: Colors.grey,
+                  Hero(
+                    tag: restaurant.id,
+                    child: Container(
+                      height: 120,
+                      width: 120,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: NetworkImage(
+                            restaurant.thumbnailUrl,
+                          ),
+                        ),
+                      ),
+                    ),
                   ),
                   Expanded(
                     child: Container(
