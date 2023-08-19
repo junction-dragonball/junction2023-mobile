@@ -1,11 +1,12 @@
-import 'dart:ui';
-
-import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:yummy_quest/app/presentation/widgets/chip.dart';
 import 'package:yummy_quest/app/presentation/widgets/gap_layout.dart';
 import 'package:yummy_quest/core/themes/color_theme.dart';
 import 'package:yummy_quest/core/themes/text_theme.dart';
+import 'package:yummy_quest/pixels/components/button.dart';
+import 'package:yummy_quest/pixels/elements/icon.dart';
+import 'package:yummy_quest/pixels/styles/color.dart';
 
 // ignore: unused_import
 import 'in_progress_quest_screen_controller.dart';
@@ -113,20 +114,11 @@ class _CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         padding: const EdgeInsets.all(8.0),
         child: Row(
           children: [
-            Container(
-              height: 48,
-              width: 48,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                color: MyColors.Dim600,
-              ),
-              child: IconButton(
-                onPressed: Get.back,
-                icon: Icon(
-                  Icons.arrow_back,
-                  color: MyColors.White,
-                ),
-              ),
+            IconButtonPixel(
+              customButtonColor: ColorPixel.dim.shade600,
+              customContentColor: ColorPixel.white,
+              icon: IconName.PREV,
+              onPress: Get.back,
             ),
             Spacer(),
             Text('Ongoing Quests 🏎️', style: MyTextStyles.Medium_w800.white),
