@@ -15,6 +15,7 @@ class YummyQuestScreen extends GetView<YummyQuestScreenController> {
     return Scaffold(
       backgroundColor: MyColors.Black,
       appBar: AppBar(
+          elevation: 0,
           toolbarHeight: 64,
           backgroundColor: Colors.transparent,
           title: Text('Quests 📜', style: MyTextStyles.Giant_w800.copyWith(color: MyColors.White)),
