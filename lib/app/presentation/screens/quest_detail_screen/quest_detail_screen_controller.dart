@@ -40,7 +40,7 @@ class QuestDetailScreenController extends GetxController {
   bool get isCompleted => quest.status == "COMPLETED";
 
   final questSummary = (Get.arguments as Map<String, dynamic>)['questSummary'] as QuestSummary;
-  final String heroSuffix =  (Get.arguments as Map<String, dynamic>)['heroSuffix'] as String;
+  final String heroSuffix = (Get.arguments as Map<String, dynamic>)['heroSuffix'] as String;
   String get heroTag => 'quest${questSummary.id}$heroSuffix';
   late Quest quest;
 
@@ -59,9 +59,9 @@ class QuestDetailScreenController extends GetxController {
           onSuccess: (quest) {
             this.quest = quest;
             Get.back();
-            Future.delayed(Duration(seconds: 1)).then((value) => Get.back());
+            Future.delayed(Duration(seconds: 3)).then((value) => Get.back());
             Get.dialog(
-              SuccessDialog(text: 'Quest is Completed!'),
+              SuccessDialog(text: 'Quest is Completed!', runConfetti: true),
               barrierDismissible: false,
             );
           },
