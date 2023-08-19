@@ -18,7 +18,8 @@ class QuestDetailScreen extends GetView<QuestDetailScreenController> {
               child: SafeArea(
                 bottom: false,
                 child: SingleChildScrollView(
-                  child: GetBuilder<QuestDetailScreenController>(builder: (controller) {
+                  child: GetBuilder<QuestDetailScreenController>(
+                      builder: (controller) {
                     final isLoading = controller.isLoading;
                     return Column(
                       children: [
@@ -30,8 +31,9 @@ class QuestDetailScreen extends GetView<QuestDetailScreenController> {
                               children: [
                                 Center(
                                   child: Hero(
-                                    tag: 'hi',
-                                    child: Image.network(controller.questSummary.thumbnailUrl),
+                                    tag: controller.questSummary.id,
+                                    child: Image.network(
+                                        controller.questSummary.thumbnailUrl),
                                   ),
                                 ),
                                 Positioned(
@@ -90,7 +92,8 @@ class QuestDetailScreen extends GetView<QuestDetailScreenController> {
                                             ),
                                             Text(isLoading
                                                 ? '000'
-                                                : controller.quest.reward.toString()),
+                                                : controller.quest.reward
+                                                    .toString()),
                                           ],
                                         ),
                                       ],
@@ -107,7 +110,8 @@ class QuestDetailScreen extends GetView<QuestDetailScreenController> {
                                       children: [
                                         Text('난이도'),
                                         DifficultyCircles(
-                                          difficulty: controller.questSummary.difficulty,
+                                          difficulty: controller
+                                              .questSummary.difficulty,
                                           radius: 10,
                                         ),
                                       ],

@@ -30,81 +30,79 @@ class YummyQuestScreen extends GetView<YummyQuestScreenController> {
           const SizedBox(width: 12),
         ],
       ),
-      body: GetBuilder<YummyQuestScreenController>(
-        builder: (controller) {
-          if(controller.isLoading){
-            return Center(child: CircularProgressIndicator());
-          }
-          return ListView.builder(
-            shrinkWrap: true,
-            itemCount: controller.questSummaries.length,
-            itemBuilder: (BuildContext ctx, int index) {
-              final questSummaries = controller.questSummaries[index];
-              return Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: GestureDetector(
-                  onTap: () {
-                    controller.onQuestTap(index);
-                  },
-                  child: Row(
-                    children: [
-                      Hero(
-                        tag: 'hi',
-                        child: Container(
-                          height: 120,
-                          width: 120,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: NetworkImage(
-                                questSummaries.thumbnailUrl,
-                              ),
+      body: GetBuilder<YummyQuestScreenController>(builder: (controller) {
+        if (controller.isLoading) {
+          return Center(child: CircularProgressIndicator());
+        }
+        return ListView.builder(
+          shrinkWrap: true,
+          itemCount: controller.questSummaries.length,
+          itemBuilder: (BuildContext ctx, int index) {
+            final questSummaries = controller.questSummaries[index];
+            return Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: GestureDetector(
+                onTap: () {
+                  controller.onQuestTap(index);
+                },
+                child: Row(
+                  children: [
+                    Hero(
+                      tag: questSummaries.id,
+                      child: Container(
+                        height: 120,
+                        width: 120,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: NetworkImage(
+                              questSummaries.thumbnailUrl,
                             ),
                           ),
                         ),
                       ),
-                      Expanded(
-                        child: Container(
-                          height: 120,
-                          color: Colors.black12,
-                          child: GapColumn(
-                            gap: 2,
-                            padding: const EdgeInsets.all(12),
-                            children: [
-                              Text(questSummaries.title),
-                              Expanded(
-                                child: Text(
-                                  questSummaries.shortDescription,
-                                  overflow: TextOverflow.clip,
+                    ),
+                    Expanded(
+                      child: Container(
+                        height: 120,
+                        color: Colors.black12,
+                        child: GapColumn(
+                          gap: 2,
+                          padding: const EdgeInsets.all(12),
+                          children: [
+                            Text(questSummaries.title),
+                            Expanded(
+                              child: Text(
+                                questSummaries.shortDescription,
+                                overflow: TextOverflow.clip,
+                              ),
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                DifficultyCircles(
+                                  difficulty: questSummaries.difficulty,
+                                  radius: 10,
                                 ),
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  DifficultyCircles(
-                                    difficulty: questSummaries.difficulty,
-                                    radius: 10,
-                                  ),
-                                  Container(
-                                    padding: const EdgeInsets.all(4),
-                                    color: Colors.blue,
-                                    // TODO: Quest 모델 만들어야함.
-                                    child: Text('IN PROGRESS'),
-                                    // child: Text(quest.status.text),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
+                                Container(
+                                  padding: const EdgeInsets.all(4),
+                                  color: Colors.blue,
+                                  // TODO: Quest 모델 만들어야함.
+                                  child: Text('IN PROGRESS'),
+                                  // child: Text(quest.status.text),
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-              );
-            },
-          );
-        }
-      ),
+              ),
+            );
+          },
+        );
+      }),
     );
   }
 }
