@@ -5,6 +5,8 @@ import 'package:get/get.dart';
 import 'package:yummy_quest/app/presentation/widgets/gap_layout.dart';
 import 'package:yummy_quest/core/themes/color_theme.dart';
 import 'package:yummy_quest/core/themes/text_theme.dart';
+import 'package:yummy_quest/pixels/elements/icon.dart';
+import 'package:yummy_quest/pixels/styles/color.dart';
 
 import 'yummy_deal_screen_controller.dart';
 
@@ -121,10 +123,10 @@ class YummyDealScreen extends GetView<YummyDealScreenController> {
                                         crossAxisAlignment: CrossAxisAlignment.center,
                                         gap: 4,
                                         children: [
-                                          Icon(
-                                            Icons.star,
+                                          IconPixel(
+                                            name: IconName.STAR,
                                             size: 16,
-                                            color: MyColors.White,
+                                            color: ColorPixel.white,
                                           ),
                                           Text(
                                             restaurant.rating.toString(),
@@ -146,10 +148,10 @@ class YummyDealScreen extends GetView<YummyDealScreenController> {
                                         crossAxisAlignment: CrossAxisAlignment.center,
                                         gap: 4,
                                         children: [
-                                          Icon(
-                                            Icons.location_on,
+                                          IconPixel(
+                                            name: IconName.DESTINATION,
                                             size: 16,
-                                            color: MyColors.Dim600,
+                                            color: ColorPixel.dim.shade600,
                                           ),
                                           Text(
                                             (minutes).toString() + " min",
