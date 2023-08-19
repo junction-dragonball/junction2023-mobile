@@ -143,7 +143,7 @@ class _ButtonPixelState extends State<ButtonPixel> {
       decoration: BoxDecoration(
         color: widget.priority != ButtonPriority.tertiary ? color : null,
         border: widget.priority == ButtonPriority.tertiary ? Border.all(color: color) : null,
-        borderRadius: const BorderRadius.all(Radius.circular(8)),
+        borderRadius: const BorderRadius.all(Radius.circular(12)),
       ),
       constraints: BoxConstraints(minWidth: height, maxHeight: height),
       child: Row(
@@ -359,7 +359,7 @@ class _IconButtonPixelState extends State<IconButtonPixel> {
                 ? color
                 : null,
         border: widget.priority == ButtonPriority.tertiary ? Border.all(color: color) : null,
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(12),
       ),
       child: Stack(
         alignment: AlignmentDirectional.center,

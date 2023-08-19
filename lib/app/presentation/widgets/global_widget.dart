@@ -3,13 +3,20 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:yummy_quest/core/themes/color_theme.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:yummy_quest/pixels/components/button.dart';
 import 'package:yummy_quest/pixels/elements/icon.dart';
 import 'package:yummy_quest/pixels/styles/color.dart';
 import 'package:yummy_quest/pixels/styles/letter.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar({Key? key}) : super(key: key);
+
+  void onShare() {
+    Share.share(
+      'Be together with your friends! Achieve quests and get coupons with Yummy Quest! 😍',
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,30 +30,18 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: Row(
                   children: [
-                    Container(
-                      height: 48,
-                      width: 48,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        color: MyColors.Dim200,
-                      ),
-                      child: IconButton(
-                        onPressed: Get.back,
-                        icon: Icon(Icons.arrow_back),
-                      ),
+                    IconButtonPixel(
+                      priority: ButtonPriority.secondary,
+                      customButtonColor: ColorPixel.dim.shade200,
+                      icon: IconName.PREV,
+                      onPress: Get.back,
                     ),
                     Spacer(),
-                    Container(
-                      height: 48,
-                      width: 48,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        color: MyColors.Dim200,
-                      ),
-                      child: IconButton(
-                        onPressed: Get.back,
-                        icon: Icon(Icons.ios_share_outlined),
-                      ),
+                    IconButtonPixel(
+                      priority: ButtonPriority.secondary,
+                      customButtonColor: ColorPixel.dim.shade200,
+                      icon: IconName.SHARE,
+                      onPress: onShare,
                     ),
                   ],
                 ),
