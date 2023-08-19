@@ -73,5 +73,4 @@ class GapRow extends StatelessWidget {
       ),
     );
   }
-
 }

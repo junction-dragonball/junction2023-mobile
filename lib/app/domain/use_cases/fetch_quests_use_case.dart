@@ -8,18 +8,19 @@ class FetchQuestsUseCase {
   }) async {
     final dio = Dio();
     try {
-      final res = await dio.get('https://dragonball-junction.azurewebsites.net/quest');
+      final res =
+          await dio.get('https://dragonball-junction.azurewebsites.net/quest');
       print(res.data);
       final data = List<Map<String, dynamic>>.from(res.data);
       print(data);
-      final List<QuestSummary> questSummaries = data.map((e) => QuestSummary.fromMap(e)).toList();
+      final List<QuestSummary> questSummaries =
+          data.map((e) => QuestSummary.fromMap(e)).toList();
       print(questSummaries);
       onSuccess(questSummaries);
       return;
     } catch (e) {
       onFail();
       rethrow;
-      return;
     }
   }
 }
