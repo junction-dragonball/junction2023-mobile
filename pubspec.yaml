@@ -32,7 +32,6 @@ dependencies:
   flutter:
     sdk: flutter
 
-
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
@@ -41,6 +40,7 @@ dependencies:
   device_info_plus: ^9.0.3
   image_picker: ^1.0.2
   intl: ^0.18.1
+  flutter_native_splash: ^2.3.2
 
 dev_dependencies:
   flutter_test:
@@ -58,7 +58,6 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
-
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
@@ -90,3 +89,18 @@ flutter:
           weight: 200
         - asset: assets/fonts/Pretendard-Thin.otf
           weight: 100
+
+flutter_native_splash:
+  android: true
+  ios: true
+  web: false
+
+  # ~ Light Theme
+  color: '#FEFEFF'
+  image: assets/images/imgSplashLogo.png
+  # branding: assets/images/imgSplashBranding.png
+
+  # ~ Dark Theme
+  # color_dark: '#0F0F10'
+  # image_dark: assets/images/imgSplashLogoDark.png
+  # branding_dark: assets/images/imgSplashBrandingDark.png
