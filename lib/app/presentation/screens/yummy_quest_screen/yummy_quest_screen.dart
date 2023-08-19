@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:yummy_quest/app/presentation/screens/main_indexed_stack_screen/main_indexed_stack_screen_controller.dart';
+import 'package:yummy_quest/app/domain/models/quest_summary.dart';
 import 'package:yummy_quest/app/presentation/widgets/chip.dart';
 import 'package:yummy_quest/app/presentation/widgets/gap_layout.dart';
 import 'package:yummy_quest/core/themes/color_theme.dart';
@@ -84,93 +86,158 @@ class YummyQuestScreen extends GetView<YummyQuestScreenController> {
           itemCount: questSummaries.length,
           itemBuilder: (BuildContext ctx, int index) {
             final quest = questSummaries[index];
-            return Padding(
-              key: ValueKey(quest.id),
-              padding: const EdgeInsets.only(bottom: 2.0),
-              child: IgnorePointer(
-                ignoring: quest.status == "COMPLETED",
-                child: GestureDetector(
-                  onTap: () {
-                    controller.onQuestTap(index);
-                  },
-                  child: Opacity(
-                    opacity: quest.status == "COMPLETED" ? 0.65 : 1,
-                    child: Container(
-                        clipBehavior: Clip.hardEdge,
-                        padding: const EdgeInsets.all(24),
-                        decoration: BoxDecoration(
-                          color: MyColors.White,
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(24),
-                          ),
-                        ),
-                        child: Row(
-                          children: [
-                            Hero(
-                              tag: 'quest' + quest.id + 'first',
-                              child: Container(
-                                height: 64,
-                                width: 64,
-                                margin: EdgeInsets.only(right: 16),
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  image: DecorationImage(
-                                    image: NetworkImage(
-                                      quest.thumbnailUrl,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              child: IntrinsicHeight(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                                  children: [
-                                    Text(quest.title.replaceAll('(Ad)', ''),
-                                        style: MyTextStyles.Medium_w600),
-                                    SizedBox(height: 4),
-                                    SizedBox(
-                                        height: 32,
-                                        child: Text(
-                                          quest.shortDescription.replaceAll('(Ad)', ''),
-                                          overflow: TextOverflow.clip,
-                                          style: MyTextStyles.Small_w400.copyWith(
-                                              color: MyColors.Dim600),
-                                          maxLines: 2,
-                                        )),
-                                    SizedBox(height: 20),
-                                    GapRow(
-                                      gap: 4,
-                                      children: [
-                                        if (quest.isNew)
-                                          CustomChip(
-                                            backgroundColor: Color(0xFFA660FF),
-                                            textColor: MyColors.White,
-                                            text: 'NEW',
-                                          ),
-                                        if (quest.isAd)
-                                          CustomChip(
-                                            backgroundColor: Color(0xFFEDEDED),
-                                            textColor: Color(0xFF7E7E7E),
-                                            text: 'AD',
-                                          ),
-                                        DifficultyChip(difficulty: quest.difficulty),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
-                        )),
-                  ),
-                ),
-              ),
+            return QuestWidget(
+              quest: quest,
+              onTap: () {
+                controller.onQuestTap(index);
+              },
             );
           },
         );
       }),
+    );
+  }
+}
+
+class QuestWidget extends StatefulWidget {
+  const QuestWidget({
+    super.key,
+    required this.quest,
+    this.onTap,
+  });
+
+  final QuestSummary quest;
+  final void Function()? onTap;
+
+  @override
+  State<QuestWidget> createState() => _QuestWidgetState();
+}
+
+class _QuestWidgetState extends State<QuestWidget> {
+  bool isTapped = false;
+  late bool isCompleted;
+
+  @override
+  void initState() {
+    super.initState();
+
+    isCompleted = widget.quest.status == "COMPLETED";
+  }
+
+  void _onTap() {
+    HapticFeedback.mediumImpact();
+
+    widget.onTap?.call();
+  }
+
+  void _onTapDown(_) {
+    setState(() {
+      isTapped = true;
+    });
+  }
+
+  void _onTapUp(_) {
+    setState(() {
+      isTapped = false;
+    });
+  }
+
+  void _onTapCancel() {
+    setState(() {
+      isTapped = false;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      key: ValueKey(widget.quest.id),
+      padding: const EdgeInsets.only(bottom: 2.0),
+      child: IgnorePointer(
+        ignoring: isCompleted,
+        child: GestureDetector(
+          onTap: _onTap,
+          onTapDown: _onTapDown,
+          onTapUp: _onTapUp,
+          onTapCancel: _onTapCancel,
+          child: Opacity(
+            opacity: isCompleted ? 0.65 : 1,
+            child: AnimatedScale(
+              scale: isTapped ? 0.95 : 1,
+              duration: const Duration(milliseconds: 120),
+              curve: Curves.easeOutBack,
+              child: Container(
+                  clipBehavior: Clip.hardEdge,
+                  padding: const EdgeInsets.all(24),
+                  decoration: BoxDecoration(
+                    color: MyColors.White,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(24),
+                    ),
+                  ),
+                  child: Row(
+                    children: [
+                      Hero(
+                        tag: 'quest' + widget.quest.id,
+                        child: Container(
+                          height: 64,
+                          width: 64,
+                          margin: EdgeInsets.only(right: 16),
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                              image: NetworkImage(
+                                widget.quest.thumbnailUrl,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: IntrinsicHeight(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              Text(widget.quest.title.replaceAll('(Ad)', ''),
+                                  style: MyTextStyles.Medium_w600),
+                              SizedBox(height: 4),
+                              SizedBox(
+                                  height: 32,
+                                  child: Text(
+                                    widget.quest.shortDescription.replaceAll('(Ad)', ''),
+                                    overflow: TextOverflow.clip,
+                                    style: MyTextStyles.Small_w400.copyWith(color: MyColors.Dim600),
+                                    maxLines: 2,
+                                  )),
+                              SizedBox(height: 20),
+                              GapRow(
+                                gap: 4,
+                                children: [
+                                  if (widget.quest.isNew)
+                                    CustomChip(
+                                      backgroundColor: Color(0xFFA660FF),
+                                      textColor: MyColors.White,
+                                      text: 'NEW',
+                                    ),
+                                  if (widget.quest.isAd)
+                                    CustomChip(
+                                      backgroundColor: Color(0xFFEDEDED),
+                                      textColor: Color(0xFF7E7E7E),
+                                      text: 'AD',
+                                    ),
+                                  DifficultyChip(difficulty: widget.quest.difficulty),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  )),
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
