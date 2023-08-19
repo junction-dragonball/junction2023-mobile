@@ -1,12 +1,13 @@
-import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:yummy_quest/app/presentation/screens/restaurant_detail_screen/restaurant_detail_screen_controller.dart';
 import 'package:yummy_quest/app/presentation/widgets/gap_layout.dart';
 import 'package:yummy_quest/app/presentation/widgets/global_widget.dart';
 import 'package:yummy_quest/core/themes/color_theme.dart';
 import 'package:yummy_quest/core/themes/text_theme.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:yummy_quest/pixels/styles/color.dart';
 
 class RestaurantDetailScreen extends GetView<RestaurantDetailScreenController> {
   const RestaurantDetailScreen({Key? key}) : super(key: key);
@@ -24,8 +25,7 @@ class RestaurantDetailScreen extends GetView<RestaurantDetailScreenController> {
               child: SafeArea(
                 bottom: false,
                 child: SingleChildScrollView(
-                  child: GetBuilder<RestaurantDetailScreenController>(
-                      builder: (controller) {
+                  child: GetBuilder<RestaurantDetailScreenController>(builder: (controller) {
                     return Column(children: [
                       Container(
                           padding: EdgeInsets.fromLTRB(8, 16, 8, 24),
@@ -42,8 +42,7 @@ class RestaurantDetailScreen extends GetView<RestaurantDetailScreenController> {
                                         decoration: BoxDecoration(
                                             image: DecorationImage(
                                       fit: BoxFit.cover,
-                                      image: NetworkImage(
-                                          controller.restaurant.thumbnailUrl),
+                                      image: NetworkImage(controller.restaurant.thumbnailUrl),
                                     )))),
                               ))),
                       GapRow(
@@ -52,8 +51,7 @@ class RestaurantDetailScreen extends GetView<RestaurantDetailScreenController> {
                         children: [
                           Container(
                             child: GapRow(
-                                padding:
-                                    const EdgeInsets.only(left: 5, right: 8),
+                                padding: const EdgeInsets.only(left: 5, right: 8),
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 gap: 4,
                                 children: [
@@ -64,22 +62,20 @@ class RestaurantDetailScreen extends GetView<RestaurantDetailScreenController> {
                                   ),
                                   Text(
                                     controller.restaurant.rating.toString(),
-                                    style: MyTextStyles.Small_w800.copyWith(
-                                        color: MyColors.White),
+                                    style: MyTextStyles.Small_w800.copyWith(color: MyColors.White),
                                   )
                                 ]),
-                            height: 24,
+                            height: 32,
                             decoration: BoxDecoration(
                               color: MyColors.Red,
                               borderRadius: BorderRadius.all(
-                                Radius.circular(4),
+                                Radius.circular(6),
                               ),
                             ),
                           ),
                           Container(
                             child: GapRow(
-                                padding:
-                                    const EdgeInsets.only(left: 5, right: 8),
+                                padding: const EdgeInsets.only(left: 5, right: 8),
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 gap: 4,
                                 children: [
@@ -90,15 +86,14 @@ class RestaurantDetailScreen extends GetView<RestaurantDetailScreenController> {
                                   ),
                                   Text(
                                     controller.minutes.toString() + " min",
-                                    style: MyTextStyles.Small_w800.copyWith(
-                                        color: MyColors.Dim600),
+                                    style: MyTextStyles.Small_w800.copyWith(color: MyColors.Dim600),
                                   )
                                 ]),
-                            height: 24,
+                            height: 32,
                             decoration: BoxDecoration(
                               color: MyColors.Gray100,
                               borderRadius: BorderRadius.all(
-                                Radius.circular(4),
+                                Radius.circular(6),
                               ),
                             ),
                           ),
@@ -117,7 +112,7 @@ class RestaurantDetailScreen extends GetView<RestaurantDetailScreenController> {
                             ),
                             const SizedBox(height: 12),
                             Text(
-                              controller.restaurant.name,
+                              controller.restaurant.editorComment,
                               style: MyTextStyles.Medium_w400,
                             ),
                             const SizedBox(height: 24),
@@ -138,38 +133,30 @@ class RestaurantDetailScreen extends GetView<RestaurantDetailScreenController> {
                               padding: EdgeInsets.symmetric(horizontal: 24),
                               gap: 24,
                               children: [
-                                ...controller.restaurant.menus
-                                    .map((menu) => Container(
+                                ...controller.restaurant.menus.map((menu) => Container(
+                                    width: 200,
+                                    child: GapColumn(gap: 0, children: [
+                                      Container(
+                                        height: 200,
                                         width: 200,
-                                        child: GapColumn(gap: 0, children: [
-                                          Container(
-                                            height: 200,
-                                            width: 200,
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(12),
-                                              image: DecorationImage(
-                                                fit: BoxFit.cover,
-                                                image: NetworkImage(
-                                                    menu.thumnailUrl),
-                                              ),
-                                            ),
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(12),
+                                          image: DecorationImage(
+                                            fit: BoxFit.cover,
+                                            image: NetworkImage(menu.thumnailUrl),
                                           ),
-                                          SizedBox(height: 12),
-                                          Text(menu.name,
-                                              overflow: TextOverflow.ellipsis,
-                                              style: MyTextStyles.Medium_w600
-                                                  .copyWith(
-                                                      color: MyColors.Gray900)),
-                                          SizedBox(height: 4),
-                                          Text(
-                                              '₩ ' +
-                                                  NumberFormat.decimalPattern()
-                                                      .format(menu.price),
-                                              style: MyTextStyles.Small_w400
-                                                  .copyWith(
-                                                      color: MyColors.Dim600)),
-                                        ])))
+                                        ),
+                                      ),
+                                      SizedBox(height: 12),
+                                      Text(menu.name,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: MyTextStyles.Medium_w600.copyWith(
+                                              color: MyColors.Gray900)),
+                                      SizedBox(height: 4),
+                                      Text('₩ ' + NumberFormat.decimalPattern().format(menu.price),
+                                          style: MyTextStyles.Small_w400.copyWith(
+                                              color: MyColors.Dim600)),
+                                    ])))
                               ])),
                       GapColumn(
                           padding: const EdgeInsets.symmetric(
@@ -205,11 +192,9 @@ class RestaurantDetailScreen extends GetView<RestaurantDetailScreenController> {
                             GestureDetector(
                                 onTap: () {
                                   launch("nmap://route/public?dlat=" +
-                                      controller.restaurant.latitude
-                                          .toString() +
+                                      controller.restaurant.latitude.toString() +
                                       '&dlng=' +
-                                      controller.restaurant.longitude
-                                          .toString() +
+                                      controller.restaurant.longitude.toString() +
                                       '&dname=' +
                                       controller.restaurant.name +
                                       '&appname=com.yummyQuest.dragonBall');
@@ -243,8 +228,19 @@ class RestaurantDetailScreen extends GetView<RestaurantDetailScreenController> {
               alignment: Alignment.bottomCenter,
               child: Container(
                   width: double.infinity,
-                  color: Colors.white,
                   padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        ColorPixel.white.withOpacity(0),
+                        ColorPixel.white.withOpacity(0.9),
+                        ColorPixel.white
+                      ],
+                      stops: [0, 0.7, 1],
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                    ),
+                  ),
                   child: GestureDetector(
                     onTap: () {
                       controller.onAcceptRestaurantButtonTap(context);

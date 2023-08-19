@@ -6,8 +6,8 @@ class LetterPixel {
   static const TextStyle _base = TextStyle(
     decoration: TextDecoration.none,
     decorationStyle: TextDecorationStyle.solid,
+    fontWeight: FontWeight.w400,
     fontFeatures: [FontFeature.caseSensitiveForms()],
-    fontVariations: [FontVariation('wght', 400)],
     leadingDistribution: TextLeadingDistribution.even,
     textBaseline: TextBaseline.alphabetic,
     letterSpacing: 0,
@@ -30,7 +30,7 @@ extension TextStyleExt on TextStyle {
   TextStyle get striked => apply(decoration: TextDecoration.lineThrough);
 
   // Apply weights
-  TextStyle get regular => apply(fontVariations: [const FontVariation('wght', 400)]);
-  TextStyle get bold => apply(fontVariations: [const FontVariation('wght', 600)]);
-  TextStyle get black => apply(fontVariations: [const FontVariation('wght', 800)]);
+  TextStyle get regular => this.copyWith(fontWeight: FontWeight.w400);
+  TextStyle get bold => this.copyWith(fontWeight: FontWeight.w600);
+  TextStyle get black => this.copyWith(fontWeight: FontWeight.w800);
 }
