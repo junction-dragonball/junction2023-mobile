@@ -73,13 +73,13 @@ class ButtonPixel extends StatefulWidget {
 
 class _ButtonPixelState extends State<ButtonPixel> {
   bool isLoading = false;
-  bool isPressed = false;
+  bool isTapped = false;
   bool isHovered = false;
 
   void _onTapDown(_) {
     if (mounted) {
       setState(() {
-        isPressed = true;
+        isTapped = true;
       });
     }
   }
@@ -87,7 +87,7 @@ class _ButtonPixelState extends State<ButtonPixel> {
   void _onTapUp(_) {
     if (mounted) {
       setState(() {
-        isPressed = false;
+        isTapped = false;
       });
     }
   }
@@ -95,7 +95,7 @@ class _ButtonPixelState extends State<ButtonPixel> {
   void _onTapCancel() {
     if (mounted) {
       setState(() {
-        isPressed = false;
+        isTapped = false;
       });
     }
   }
@@ -242,9 +242,10 @@ class _ButtonPixelState extends State<ButtonPixel> {
         onTapUp: _onTapUp,
         onTapCancel: _onTapCancel,
         onTap: _onTap,
-        child: AnimatedOpacity(
-          opacity: isPressed ? 0.85 : 1.0,
-          duration: const Duration(milliseconds: 100),
+        child: AnimatedScale(
+          scale: isTapped ? 0.85 : 1.0,
+          duration: const Duration(milliseconds: 150),
+          curve: Curves.easeOutBack,
           child: _container(
             children: [
               _content(),
@@ -289,13 +290,13 @@ class IconButtonPixel extends StatefulWidget {
 
 class _IconButtonPixelState extends State<IconButtonPixel> {
   bool isLoading = false;
-  bool isPressed = false;
+  bool isTapped = false;
   bool isHovered = false;
 
   void _onTapDown(_) {
     if (mounted) {
       setState(() {
-        isPressed = true;
+        isTapped = true;
       });
     }
   }
@@ -303,7 +304,7 @@ class _IconButtonPixelState extends State<IconButtonPixel> {
   void _onTapUp(_) {
     if (mounted) {
       setState(() {
-        isPressed = false;
+        isTapped = false;
       });
     }
   }
@@ -311,7 +312,7 @@ class _IconButtonPixelState extends State<IconButtonPixel> {
   void _onTapCancel() {
     if (mounted) {
       setState(() {
-        isPressed = false;
+        isTapped = false;
       });
     }
   }
@@ -419,9 +420,10 @@ class _IconButtonPixelState extends State<IconButtonPixel> {
         onTapUp: _onTapUp,
         onTapCancel: _onTapCancel,
         onTap: _onTap,
-        child: AnimatedOpacity(
-          opacity: isPressed ? 0.85 : 1.0,
-          duration: const Duration(milliseconds: 100),
+        child: AnimatedScale(
+          scale: isTapped ? 0.85 : 1.0,
+          duration: const Duration(milliseconds: 150),
+          curve: Curves.easeOutBack,
           child: _container(
             children: [
               _content(),
