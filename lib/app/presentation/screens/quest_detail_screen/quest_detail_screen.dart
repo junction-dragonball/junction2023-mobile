@@ -16,7 +16,7 @@ class QuestDetailScreen extends GetView<QuestDetailScreenController> {
     return GestureDetector(
       child: Scaffold(
         key: controller.scaffoldKey,
-        appBar: CustomAppBar(),
+        appBar: _CustomAppBar(),
         extendBodyBehindAppBar: true,
         body: Stack(
           children: [
@@ -100,21 +100,21 @@ class QuestDetailScreen extends GetView<QuestDetailScreenController> {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  if(!controller.isLoading)
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: Container(
-                      padding: const EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(6),
-                        color: MyColors.PaleYellow,
-                      ),
-                      child: Text(
-                        '${controller.quest.inProgressCount} peoples are already in progress 🔥',
-                        textAlign: TextAlign.center,
+                  if (!controller.isLoading)
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: Container(
+                        padding: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(6),
+                          color: MyColors.PaleYellow,
+                        ),
+                        child: Text(
+                          '${controller.quest.inProgressCount} peoples are already in progress 🔥',
+                          textAlign: TextAlign.center,
+                        ),
                       ),
                     ),
-                  ),
                   Container(
                     color: Colors.transparent,
                     padding: const EdgeInsets.symmetric(horizontal: 8.0).copyWith(
@@ -170,7 +170,10 @@ class QuestDetailScreen extends GetView<QuestDetailScreenController> {
               text: 'AD',
               isLarge: true,
             ),
-          DifficultyChip(difficulty: controller.questSummary.difficulty),
+          DifficultyChip(
+            difficulty: controller.questSummary.difficulty,
+            isLarge: true,
+          ),
         ],
       ),
     );
@@ -271,8 +274,8 @@ class _ContentsBox extends StatelessWidget {
   }
 }
 
-class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const CustomAppBar({Key? key}) : super(key: key);
+class _CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
+  const _CustomAppBar({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

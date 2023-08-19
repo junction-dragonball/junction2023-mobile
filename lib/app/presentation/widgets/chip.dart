@@ -3,9 +3,11 @@ import 'package:yummy_quest/core/themes/text_theme.dart';
 
 class DifficultyChip extends StatelessWidget {
   final int difficulty;
+  final bool isLarge;
 
   const DifficultyChip({
     required this.difficulty,
+    this.isLarge = false,
     Key? key,
   }) : super(key: key);
 
@@ -29,7 +31,7 @@ class DifficultyChip extends StatelessWidget {
       backgroundColor: _backgroundColors[difficulty - 2],
       textColor: _textColors[difficulty - 2],
       text: _texts[difficulty - 2],
-      isLarge: true,
+      isLarge: isLarge,
     );
   }
 }

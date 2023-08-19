@@ -1,4 +1,6 @@
 import 'package:get/route_manager.dart';
+import 'package:yummy_quest/app/presentation/screens/in_progress_quest_screen/in_progress_quest_screen.dart';
+import 'package:yummy_quest/app/presentation/screens/in_progress_quest_screen/in_progress_quest_screen_binding.dart';
 import 'package:yummy_quest/app/presentation/screens/main_indexed_stack_screen/main_indexed_stack_screen.dart';
 import 'package:yummy_quest/app/presentation/screens/main_indexed_stack_screen/main_indexed_stack_screen_binding.dart';
 import 'package:yummy_quest/app/presentation/screens/my_page_screen/my_page_screen_binding.dart';
@@ -13,7 +15,8 @@ import 'package:yummy_quest/app/presentation/screens/yummy_quest_screen/yummy_qu
 import 'package:yummy_quest/routes/named_routes.dart';
 
 abstract class GetPages {
-  static get pages => [
+  static get pages =>
+      [
         GetPage(
           name: RouteNames.SPLASH,
           page: () => const SplashScreen(),
@@ -31,6 +34,16 @@ abstract class GetPages {
         ),
         GetPage(
           name: RouteNames.MAIN + RouteNames.QUEST_DETAIL,
+          page: () => const QuestDetailScreen(),
+          binding: QuestDetailScreenBinding(),
+        ),
+        GetPage(
+          name: RouteNames.MAIN + RouteNames.IN_PROGRESS_QUEST,
+          page: () => const InProgressQuestScreen(),
+          binding: InProgressQuestScreenBinding(),
+        ),
+        GetPage(
+          name: RouteNames.MAIN + RouteNames.IN_PROGRESS_QUEST + RouteNames.QUEST_DETAIL,
           page: () => const QuestDetailScreen(),
           binding: QuestDetailScreenBinding(),
         ),

@@ -22,7 +22,7 @@ class SplashScreenController extends GetxController {
           },
         );
         Get.put<Dio>(dio, permanent: true);
-        Get.offAllNamed(RouteNames.MAIN);
+        Get.offAllNamed(RouteNames.MAIN, arguments: user);
       },
       onFail: () {
         print('실패하면 앱 종료시키기');

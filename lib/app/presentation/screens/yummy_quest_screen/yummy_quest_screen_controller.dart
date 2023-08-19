@@ -12,6 +12,15 @@ class YummyQuestScreenController extends GetxController {
 
   bool isLoading = true;
 
+  final RxInt progressQuestCount = 0.obs;
+
+  void onActionTap() {
+    Get.toNamed(
+      RouteNames.Maker(nextRoute: RouteNames.IN_PROGRESS_QUEST),
+      arguments: questSummaries.where((element) => element.status == "IN_PROGRESS"),
+    );
+  }
+
   late List<QuestSummary> questSummaries;
 
   @override
@@ -20,8 +29,10 @@ class YummyQuestScreenController extends GetxController {
     await _fetchQuestsUseCase(
       onSuccess: (questSummaries) {
         this.questSummaries = questSummaries;
+        progressQuestCount(
+            questSummaries.where((element) => element.status == "IN_PROGRESS").length);
       },
-      onFail: (){
+      onFail: () {
         print('실패했음 ㅜㅜ');
       },
     );

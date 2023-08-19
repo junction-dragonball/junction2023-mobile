@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:yummy_quest/app/domain/models/user.dart';
 
 class MainIndexedStackScreenController extends GetxController{
 
@@ -7,4 +8,8 @@ class MainIndexedStackScreenController extends GetxController{
   void onBottomNavItemTap(int index){
     currentIndex(index);
   }
+
+  User user = Get.arguments as User;
+
+
 }
