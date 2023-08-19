@@ -36,10 +36,15 @@ class YummyDealScreen extends GetView<YummyDealScreenController> {
                         gap: 2,
                         padding: const EdgeInsets.all(12),
                         children: [
-                          Text(restaurant.name),
+                          Row(children: [
+                            Text(restaurant.name),
+                            Text(restaurant.rating.toString()),
+                          ]),
                           Expanded(
                             child: Text(
-                              restaurant.name,
+                              restaurant.menus
+                                  .map((menu) => menu.name)
+                                  .join(', '),
                               overflow: TextOverflow.clip,
                             ),
                           ),

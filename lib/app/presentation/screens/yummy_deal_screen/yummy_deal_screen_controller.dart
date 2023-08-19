@@ -12,7 +12,7 @@ class YummyDealScreenController extends GetxController {
 
   bool isLoading = true;
 
-  late List<Restaurant> restaurants;
+  List<Restaurant> restaurants = [];
 
   @override
   void onInit() async {
