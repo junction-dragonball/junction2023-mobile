@@ -56,6 +56,37 @@ class QuestDetailScreenController extends GetxController {
           onSuccess: (quest) {
             this.quest = quest;
             Get.back();
+            Future.delayed(Duration(seconds: 1)).then((value) => Get.back());
+            Get.dialog(
+              Center(
+                child: Material(
+                  color: Colors.transparent,
+                  child: Container(
+                    width: 160,
+                    height: 160,
+                    padding: const EdgeInsets.symmetric(vertical: 32),
+                    decoration: BoxDecoration(
+                      color: MyColors.White,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: GapColumn(
+                      gap: 16,
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          'assets/icons/green_filled_check.png',
+                          width: 64,
+                          height: 64,
+                        ),
+                        Text('Quest is Completed!',style: MyTextStyles.Small_w800),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              barrierDismissible: false,
+            );
           },
           onFail: () {
             print('confirmQuestUseCase 실패');

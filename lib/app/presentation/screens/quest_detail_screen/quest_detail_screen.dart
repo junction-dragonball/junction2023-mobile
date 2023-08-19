@@ -42,7 +42,9 @@ class QuestDetailScreen extends GetView<QuestDetailScreenController> {
                           children: [
                             Text(
                               controller.questSummary.title.replaceAll('(Ad)', ''),
-                              style: MyTextStyles.Giant_w800,
+                              style: MyTextStyles.Giant_w800.copyWith(
+                                decoration: (!controller.isLoading && controller.isCompleted) ? TextDecoration.lineThrough : null,
+                              ),
                             ),
                             if (!controller.isLoading && controller.isInProgress)
                               Padding(
