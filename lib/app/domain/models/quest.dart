@@ -2,12 +2,14 @@ class Quest {
   final String title;
   final String description;
   final QuestStatus status;
+  final int difficulty;
   final int reward;
 
   const Quest({
     required this.title,
     required this.description,
     required this.status,
+    required this.difficulty,
     required this.reward,
   });
 }
