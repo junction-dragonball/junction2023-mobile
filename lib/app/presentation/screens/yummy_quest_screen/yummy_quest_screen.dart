@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:yummy_quest/app/presentation/screens/main_indexed_stack_screen/main_indexed_stack_screen_controller.dart';
 import 'package:yummy_quest/app/presentation/widgets/chip.dart';
 import 'package:yummy_quest/app/presentation/widgets/gap_layout.dart';
 import 'package:yummy_quest/core/themes/color_theme.dart';
@@ -36,9 +37,11 @@ class YummyQuestScreen extends GetView<YummyQuestScreenController> {
                   ),
                   SizedBox(width: 4),
                   Center(
-                      child: Text(
-                    '480',
-                    style: MyTextStyles.Medium_w800.copyWith(color: MyColors.White),
+                      child: Obx(
+                    () => Text(
+                      Get.find<MainIndexedStackScreenController>().user.value.points.toString(),
+                      style: MyTextStyles.Medium_w800.copyWith(color: MyColors.White),
+                    ),
                   )),
                 ]),
               ),
