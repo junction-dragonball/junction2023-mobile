@@ -49,6 +49,8 @@
 		<false/>
 		<key>NSCameraUsageDescription</key>
 		<string>send a photo to do quest</string>
+		<key>NSPhotoLibraryUsageDescription</key>
+        <string>send a photo to do quest</string>
 		<key>UIStatusBarHidden</key>
 		<false/>
 	</dict>

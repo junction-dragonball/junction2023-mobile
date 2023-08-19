@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:yummy_quest/app/domain/use_cases/take_a_photo_use_case.dart';
 import 'package:yummy_quest/app/presentation/widgets/gap_layout.dart';
 import 'package:yummy_quest/core/themes/color_theme.dart';
 import 'package:yummy_quest/core/themes/text_theme.dart';

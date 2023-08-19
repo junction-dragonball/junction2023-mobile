@@ -32,8 +32,8 @@ class _GuideBottomSheetDialog extends StatelessWidget {
                 child: GapColumn(
                   children: [
                     ...List.generate(instructions.length, (index) {
-                      return _CustomListTile(
-                        index: index,
+                      return CustomListTile(
+                        order: index+1,
                         text: instructions[index],
                       );
                     }).toList(),
