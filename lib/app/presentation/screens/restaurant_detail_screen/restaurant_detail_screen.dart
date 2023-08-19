@@ -29,13 +29,13 @@ class RestaurantDetailScreen extends GetView<RestaurantDetailScreenController> {
                     return Column(children: [
                       Container(
                           padding: EdgeInsets.fromLTRB(8, 16, 8, 24),
-                          child: Container(
-                              clipBehavior: Clip.hardEdge,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(16),
-                              ),
-                              child: Hero(
-                                tag: controller.restaurant.id + 'restaurant',
+                          child: Hero(
+                              tag: controller.restaurant.id + 'restaurant',
+                              child: Container(
+                                clipBehavior: Clip.hardEdge,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(16),
+                                ),
                                 child: AspectRatio(
                                     aspectRatio: 1,
                                     child: Container(
