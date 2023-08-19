@@ -1,9 +1,10 @@
-import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:yummy_quest/app/presentation/widgets/chip.dart';
 import 'package:yummy_quest/app/presentation/widgets/gap_layout.dart';
 import 'package:yummy_quest/core/themes/color_theme.dart';
 import 'package:yummy_quest/core/themes/text_theme.dart';
+
 import 'yummy_quest_screen_controller.dart';
 
 class YummyQuestScreen extends GetView<YummyQuestScreenController> {
@@ -27,7 +28,11 @@ class YummyQuestScreen extends GetView<YummyQuestScreenController> {
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Row(children: [
-                  Icon(Icons.circle),
+                  Image.asset(
+                    'assets/icons/gem.png',
+                    width: 16,
+                    height: 16,
+                  ),
                   SizedBox(width: 4),
                   Center(
                       child: Text(
