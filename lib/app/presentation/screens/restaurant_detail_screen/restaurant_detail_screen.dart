@@ -140,38 +140,40 @@ class RestaurantDetailScreen extends GetView<RestaurantDetailScreenController> {
                               padding: EdgeInsets.symmetric(horizontal: 24),
                               gap: 24,
                               children: [
-                                ...controller.restaurant.menus.map((menu) =>
-                                    GapColumn(gap: 0, children: [
-                                      Container(
-                                        height: 200,
+                                ...controller.restaurant.menus
+                                    .map((menu) => Container(
                                         width: 200,
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(12),
-                                          image: DecorationImage(
-                                            fit: BoxFit.cover,
-                                            image: NetworkImage(
-                                              controller
-                                                  .restaurant.thumbnailUrl,
+                                        child: GapColumn(gap: 0, children: [
+                                          Container(
+                                            height: 200,
+                                            width: 200,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(12),
+                                              image: DecorationImage(
+                                                fit: BoxFit.cover,
+                                                image: NetworkImage(
+                                                  controller
+                                                      .restaurant.thumbnailUrl,
+                                                ),
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                      ),
-                                      SizedBox(height: 12),
-                                      Text(menu.name,
-                                          overflow: TextOverflow.ellipsis,
-                                          style:
-                                              MyTextStyles.Medium_w600.copyWith(
-                                                  color: MyColors.Gray900)),
-                                      SizedBox(height: 4),
-                                      Text(
-                                          '₩ ' +
-                                              NumberFormat.decimalPattern()
-                                                  .format(menu.price),
-                                          style:
-                                              MyTextStyles.Small_w400.copyWith(
-                                                  color: MyColors.Dim600)),
-                                    ]))
+                                          SizedBox(height: 12),
+                                          Text(menu.name,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: MyTextStyles.Medium_w600
+                                                  .copyWith(
+                                                      color: MyColors.Gray900)),
+                                          SizedBox(height: 4),
+                                          Text(
+                                              '₩ ' +
+                                                  NumberFormat.decimalPattern()
+                                                      .format(menu.price),
+                                              style: MyTextStyles.Small_w400
+                                                  .copyWith(
+                                                      color: MyColors.Dim600)),
+                                        ])))
                               ])),
                       GapColumn(
                           padding: const EdgeInsets.symmetric(
