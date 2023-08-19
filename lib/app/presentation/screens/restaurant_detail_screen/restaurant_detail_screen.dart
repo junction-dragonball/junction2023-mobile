@@ -6,6 +6,7 @@ import 'package:yummy_quest/app/presentation/widgets/gap_layout.dart';
 import 'package:yummy_quest/app/presentation/widgets/global_widget.dart';
 import 'package:yummy_quest/core/themes/color_theme.dart';
 import 'package:yummy_quest/core/themes/text_theme.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class RestaurantDetailScreen extends GetView<RestaurantDetailScreenController> {
   const RestaurantDetailScreen({Key? key}) : super(key: key);
@@ -184,24 +185,35 @@ class RestaurantDetailScreen extends GetView<RestaurantDetailScreenController> {
                             const SizedBox(height: 16),
                             // todo 이미지 넣기
                             const SizedBox(height: 8),
-                            Container(
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(12),
-                                color: MyColors.Dim200,
-                              ),
-                              padding: const EdgeInsets.symmetric(
-                                vertical: 16,
-                                horizontal: 8,
-                              ),
-                              child: Text(
-                                'Navigate to the Store',
-                                style: MyTextStyles.Medium_w600.copyWith(
-                                  color: MyColors.Black,
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
+                            GestureDetector(
+                                onTap: () {
+                                  print(controller.restaurant.naverMapId +
+                                      ' hihi');
+                                  launchUrl(
+                                      Uri(
+                                          scheme: 'https',
+                                          path: controller.restaurant.naverMapId
+                                              .split('//')[1]),
+                                      mode: LaunchMode.externalApplication);
+                                },
+                                child: Container(
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(12),
+                                    color: MyColors.Dim200,
+                                  ),
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 16,
+                                    horizontal: 8,
+                                  ),
+                                  child: Text(
+                                    'Navigate to the Store',
+                                    style: MyTextStyles.Medium_w600.copyWith(
+                                      color: MyColors.Black,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                )),
                             const SizedBox(height: 120),
                           ]),
                     ]);
@@ -216,9 +228,7 @@ class RestaurantDetailScreen extends GetView<RestaurantDetailScreenController> {
                   color: Colors.white,
                   padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
                   child: GestureDetector(
-                    onTap: () {
-                      controller.onAcceptRestaurantButtonTap(context);
-                    },
+                    onTap: () {},
                     child: SafeArea(
                       top: false,
                       child: Container(
