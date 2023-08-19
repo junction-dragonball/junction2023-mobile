@@ -1,10 +1,14 @@
-import 'package:get/get.dart';
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:yummy_quest/app/presentation/widgets/gap_layout.dart';
 import 'package:yummy_quest/core/themes/color_theme.dart';
 import 'package:yummy_quest/core/themes/text_theme.dart';
+import 'package:yummy_quest/pixels/elements/icon.dart';
+import 'package:yummy_quest/pixels/styles/color.dart';
+
 import 'yummy_deal_screen_controller.dart';
-import 'dart:math';
 
 class YummyDealScreen extends GetView<YummyDealScreenController> {
   const YummyDealScreen({Key? key}) : super(key: key);
@@ -18,8 +22,7 @@ class YummyDealScreen extends GetView<YummyDealScreenController> {
       appBar: AppBar(
           toolbarHeight: 64,
           backgroundColor: Colors.transparent,
-          title: Text('Places 🗺️',
-              style: MyTextStyles.Giant_w800.copyWith(color: MyColors.White)),
+          title: Text('Places 🗺️', style: MyTextStyles.Giant_w800.copyWith(color: MyColors.White)),
           actions: [
             Center(
               child: Container(
@@ -30,13 +33,16 @@ class YummyDealScreen extends GetView<YummyDealScreenController> {
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Row(children: [
-                  Icon(Icons.circle),
+                  Image.asset(
+                    'assets/icons/gem.png',
+                    width: 16,
+                    height: 16,
+                  ),
                   SizedBox(width: 4),
                   Center(
                       child: Text(
                     '480',
-                    style: MyTextStyles.Medium_w800.copyWith(
-                        color: MyColors.White),
+                    style: MyTextStyles.Medium_w800.copyWith(color: MyColors.White),
                   )),
                 ]),
               ),
@@ -92,48 +98,40 @@ class YummyDealScreen extends GetView<YummyDealScreenController> {
                             children: [
                               Padding(
                                   padding: const EdgeInsets.only(bottom: 4),
-                                  child: Text(restaurant.name,
-                                      style: MyTextStyles.Medium_w600)),
+                                  child: Text(restaurant.name, style: MyTextStyles.Medium_w600)),
                               Expanded(
                                 child: Text(
                                   restaurant.editorComment,
                                   maxLines: 2,
                                   overflow: TextOverflow.ellipsis,
-                                  style: MyTextStyles.Small_w400.copyWith(
-                                      color: MyColors.Dim600),
+                                  style: MyTextStyles.Small_w400.copyWith(color: MyColors.Dim600),
                                 ),
                               ),
                               Padding(
                                   padding: const EdgeInsets.only(bottom: 16),
                                   child: Text(
-                                    restaurant.menus
-                                        .map((menu) => menu.name)
-                                        .join(', '),
+                                    restaurant.menus.map((menu) => menu.name).join(', '),
                                     overflow: TextOverflow.ellipsis,
-                                    style: MyTextStyles.Tiny_w600.copyWith(
-                                        color: MyColors.Dim400),
+                                    style: MyTextStyles.Tiny_w600.copyWith(color: MyColors.Dim400),
                                   )),
                               GapRow(
                                 gap: 4,
                                 children: [
                                   Container(
                                     child: GapRow(
-                                        padding: const EdgeInsets.only(
-                                            left: 5, right: 8),
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
+                                        padding: const EdgeInsets.only(left: 5, right: 8),
+                                        crossAxisAlignment: CrossAxisAlignment.center,
                                         gap: 4,
                                         children: [
-                                          Icon(
-                                            Icons.star,
+                                          IconPixel(
+                                            name: IconName.STAR,
                                             size: 16,
-                                            color: MyColors.White,
+                                            color: ColorPixel.white,
                                           ),
                                           Text(
                                             restaurant.rating.toString(),
-                                            style:
-                                                MyTextStyles.Tiny_w800.copyWith(
-                                                    color: MyColors.White),
+                                            style: MyTextStyles.Tiny_w800.copyWith(
+                                                color: MyColors.White),
                                           )
                                         ]),
                                     height: 24,
@@ -146,22 +144,19 @@ class YummyDealScreen extends GetView<YummyDealScreenController> {
                                   ),
                                   Container(
                                     child: GapRow(
-                                        padding: const EdgeInsets.only(
-                                            left: 5, right: 8),
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
+                                        padding: const EdgeInsets.only(left: 5, right: 8),
+                                        crossAxisAlignment: CrossAxisAlignment.center,
                                         gap: 4,
                                         children: [
-                                          Icon(
-                                            Icons.location_on,
+                                          IconPixel(
+                                            name: IconName.DESTINATION,
                                             size: 16,
-                                            color: MyColors.Dim600,
+                                            color: ColorPixel.dim.shade600,
                                           ),
                                           Text(
                                             (minutes).toString() + " min",
-                                            style:
-                                                MyTextStyles.Tiny_w800.copyWith(
-                                                    color: MyColors.Dim600),
+                                            style: MyTextStyles.Tiny_w800.copyWith(
+                                                color: MyColors.Dim600),
                                           )
                                         ]),
                                     height: 24,
