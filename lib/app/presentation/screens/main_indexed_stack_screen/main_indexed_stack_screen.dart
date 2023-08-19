@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:yummy_quest/app/presentation/screens/my_page_screen/my_page_screen.dart';
 import 'package:yummy_quest/app/presentation/screens/yummy_deal_screen/yummy_deal_screen.dart';
 import 'package:yummy_quest/app/presentation/screens/yummy_quest_screen/yummy_quest_screen.dart';
+import 'package:yummy_quest/core/themes/color_theme.dart';
 import 'main_indexed_stack_screen_controller.dart';
 
 class MainIndexedStackScreen extends GetView<MainIndexedStackScreenController> {
@@ -25,10 +26,16 @@ class MainIndexedStackScreen extends GetView<MainIndexedStackScreenController> {
         () => BottomNavigationBar(
           currentIndex: controller.currentIndex.value,
           onTap: controller.onBottomNavItemTap,
+          backgroundColor: MyColors.Gray900,
+          selectedItemColor: MyColors.Orange,
+          unselectedItemColor: MyColors.Dim400,
           items: [
-            BottomNavigationBarItem(icon: Icon(Icons.circle), label: '1'),
-            BottomNavigationBarItem(icon: Icon(Icons.circle), label: '2'),
-            BottomNavigationBarItem(icon: Icon(Icons.circle), label: '3'),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.circle),
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(icon: Icon(Icons.circle), label: 'Market'),
+            BottomNavigationBarItem(icon: Icon(Icons.circle), label: 'Profile'),
           ],
         ),
       ),
