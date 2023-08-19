@@ -4,6 +4,7 @@ import 'package:yummy_quest/app/domain/models/restaurant.dart';
 import 'package:yummy_quest/app/domain/use_cases/fetch_restaurants_use_case.dart';
 import 'package:yummy_quest/app/presentation/screens/main_indexed_stack_screen/main_indexed_stack_screen_controller.dart';
 import 'package:yummy_quest/app/presentation/widgets/gap_layout.dart';
+import 'package:yummy_quest/app/presentation/widgets/success_dialog.dart';
 import 'package:yummy_quest/core/themes/color_theme.dart';
 import 'package:yummy_quest/core/themes/text_theme.dart';
 import 'package:intl/intl.dart';
@@ -14,6 +15,15 @@ class RestaurantDetailScreenController extends GetxController {
   RestaurantDetailScreenController({
     required FetchRestaurantsUseCase fetchRestaurantsUseCase,
   });
+
+  void onCheckoutButtonTap() {
+    Get.back();
+    Future.delayed(Duration(seconds: 1)).then((value) => Get.back());
+    Get.dialog(
+      SuccessDialog(text: 'Claimed Coupon!'),
+      barrierDismissible: false,
+    );
+  }
 
   void onAcceptRestaurantButtonTap(BuildContext context) {
     Get.bottomSheet(Material(
@@ -138,23 +148,21 @@ class RestaurantDetailScreenController extends GetxController {
                         ],
                       ))
                 ])),
-            Container(
-              height: 56,
-              margin: EdgeInsets.only(bottom: 16),
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: MyColors.Black,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(12),
-                ),
-              ),
-              child: GestureDetector(
-                onTap: Get.back,
-                child: Container(
-                  child: Text(
-                    'Checkout ₩' + formatPrice(this.finalPrice),
-                    style: MyTextStyles.Medium_w600.copyWith(color: MyColors.White),
+            GestureDetector(
+              onTap: onCheckoutButtonTap,
+              child: Container(
+                height: 56,
+                margin: EdgeInsets.only(bottom: 16),
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: MyColors.Black,
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(12),
                   ),
+                ),
+                child: Text(
+                  'Checkout ₩' + formatPrice(this.finalPrice),
+                  style: MyTextStyles.Medium_w600.copyWith(color: MyColors.White),
                 ),
               ),
             ),

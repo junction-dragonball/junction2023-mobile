@@ -8,6 +8,7 @@ import 'package:yummy_quest/app/domain/use_cases/get_reward_use_case.dart';
 import 'package:yummy_quest/app/domain/use_cases/take_a_photo_use_case.dart';
 import 'package:yummy_quest/app/presentation/widgets/custom_list_tile.dart';
 import 'package:yummy_quest/app/presentation/widgets/gap_layout.dart';
+import 'package:yummy_quest/app/presentation/widgets/success_dialog.dart';
 import 'package:yummy_quest/core/themes/color_theme.dart';
 import 'package:yummy_quest/core/themes/text_theme.dart';
 
@@ -60,33 +61,7 @@ class QuestDetailScreenController extends GetxController {
             Get.back();
             Future.delayed(Duration(seconds: 1)).then((value) => Get.back());
             Get.dialog(
-              Center(
-                child: Material(
-                  color: Colors.transparent,
-                  child: Container(
-                    width: 160,
-                    height: 160,
-                    padding: const EdgeInsets.symmetric(vertical: 32),
-                    decoration: BoxDecoration(
-                      color: MyColors.White,
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: GapColumn(
-                      gap: 16,
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Image.asset(
-                          'assets/icons/green_filled_check.png',
-                          width: 64,
-                          height: 64,
-                        ),
-                        Text('Quest is Completed!',style: MyTextStyles.Small_w800),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
+              SuccessDialog(text: 'Quest is Completed!'),
               barrierDismissible: false,
             );
           },
