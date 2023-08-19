@@ -147,6 +147,7 @@ class _CustomBottomNavItemState extends State<CustomBottomNavItem> {
     }
 
     return GestureDetector(
+      behavior: HitTestBehavior.translucent,
       onTap: _onTap,
       onTapDown: _onTapDown,
       onTapUp: _onTapUp,
