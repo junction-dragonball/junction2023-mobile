@@ -22,7 +22,7 @@ class MainIndexedStackScreenController extends GetxController {
 
   void onBottomNavItemTap(int index) {
     if (index == 2) {
-      Future.delayed(Duration(seconds: 3)).then((value) => Get.back());
+      Future.delayed(Duration(seconds: 1)).then((value) => Get.back());
       Get.dialog(
         ImageDialog(
           text: 'Not yet... :(',
