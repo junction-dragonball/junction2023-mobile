@@ -13,6 +13,9 @@ class MainIndexedStackScreenController extends GetxController {
   }
 
   void onBottomNavItemTap(int index) {
+    if (index == 2) {
+      return;
+    }
     currentIndex(index);
   }
 
