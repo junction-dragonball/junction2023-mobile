@@ -100,59 +100,61 @@ class QuestDetailScreen extends GetView<QuestDetailScreenController> {
                 );
               }),
             ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: GapColumn(
-                gap: 8,
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  if (!controller.isLoading)
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: Container(
-                        padding: const EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(6),
-                          color: MyColors.PaleYellow,
+            GetBuilder<QuestDetailScreenController>(
+              builder: (controller) {
+                return Align(
+                  alignment: Alignment.bottomCenter,
+                  child: GapColumn(
+                    gap: 8,
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      if (!controller.isLoading)
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          child: Container(
+                            padding: const EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(6),
+                              color: MyColors.PaleYellow,
+                            ),
+                            child: Text(
+                              '${controller.quest.inProgressCount} peoples are already in progress 🔥',
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
                         ),
-                        child: Text(
-                          '${controller.quest.inProgressCount} peoples are already in progress 🔥',
-                          textAlign: TextAlign.center,
+                      if (!controller.isLoading)
+                      Container(
+                        color: Colors.transparent,
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0).copyWith(
+                          bottom: 16 + Get.window.padding.bottom / Get.window.devicePixelRatio,
                         ),
-                      ),
-                    ),
-                  Container(
-                    color: Colors.transparent,
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 8.0).copyWith(
-                      bottom: 16 +
-                          Get.window.padding.bottom /
-                              Get.window.devicePixelRatio,
-                    ),
-                    child: GestureDetector(
-                      onTap: () {
-                        controller.onAcceptQuestButtonTap(context);
-                      },
-                      child: Container(
-                        height: 56,
-                        padding: const EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                          color: Colors.black,
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: Center(
-                          child: Text(
-                            'Accept Quest!',
-                            style: MyTextStyles.Medium_w600.white,
-                            textAlign: TextAlign.center,
+                        child: GestureDetector(
+                          onTap: () {
+                            controller.onAcceptQuestButtonTap(context);
+                          },
+                          child: Container(
+                            height: 56,
+                            padding: const EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                              color: controller.isNotStarted ? MyColors.Black : MyColors.Blue,
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: Center(
+                              child: Text(
+                                controller.isNotStarted ? 'Accept Quest!' : 'Get Reward!',
+                                style: MyTextStyles.Medium_w600.white,
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
                           ),
                         ),
                       ),
-                    ),
+                    ],
                   ),
-                ],
-              ),
+                );
+              }
             ),
           ],
         ),
@@ -211,36 +213,53 @@ class QuestDetailScreen extends GetView<QuestDetailScreenController> {
             ),
           ),
         ),
-        Positioned(
-          bottom: 0,
-          right: 0,
-          left: 0,
-          child: Center(
-            child: Container(
-              decoration: BoxDecoration(
-                color: MyColors.Orange,
-                borderRadius: BorderRadius.circular(24),
-                border: Border.all(
-                  color: MyColors.White,
-                  width: 4,
-                  strokeAlign: 1,
+        GetBuilder<QuestDetailScreenController>(
+          builder: (controller) {
+            return Positioned(
+              bottom: 0,
+              right: 0,
+              left: 0,
+              child: Center(
+                child: AnimatedScale(
+                  scale: !controller.isLoading && !controller.isCompleted ? 1 : 0,
+                  duration: Duration(milliseconds: 300),
+                  child: !controller.isLoading
+                      ? Container(
+                          decoration: BoxDecoration(
+                            color: controller.isCompleted ? MyColors.Green : MyColors.Orange,
+                            borderRadius: BorderRadius.circular(24),
+                            border: Border.all(
+                              color: MyColors.White,
+                              width: 4,
+                              strokeAlign: 1,
+                            ),
+                          ),
+                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                          child: GapRow(
+                            gap: 8,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              SizedBox(
+                                width: 24,
+                                height: 24,
+                                child: Image.asset(
+                                  controller.isCompleted
+                                      ? 'assets/icons/green_check.png'
+                                      : 'assets/icons/gem.png',
+                                ),
+                              ),
+                              Text(
+                                controller.quest.reward.toString(),
+                                style: MyTextStyles.Large_w800.white,
+                              ),
+                            ],
+                          ),
+                        )
+                      : SizedBox.shrink(),
                 ),
               ),
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-              child: GapRow(
-                gap: 8,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  SizedBox(
-                    width: 24,
-                    height: 24,
-                    child: Image.asset('assets/icons/gem.png'),
-                  ),
-                  Text('140', style: MyTextStyles.Large_w800.white),
-                ],
-              ),
-            ),
-          ),
+            );
+          },
         ),
       ],
     );

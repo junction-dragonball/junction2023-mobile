@@ -76,6 +76,7 @@ class YummyQuestScreen extends GetView<YummyQuestScreenController> {
           itemBuilder: (BuildContext ctx, int index) {
             final quest = questSummaries[index];
             return Padding(
+              key: ValueKey(quest.id),
               padding: const EdgeInsets.only(bottom: 2.0),
               child: GestureDetector(
                 onTap: () {

@@ -15,6 +15,7 @@ class Quest {
   final DateTime createdAt;
   final int inProgressCount;
   final int completeCount;
+  final String status;
 
   bool get isNew => id == '1';
 
@@ -51,6 +52,7 @@ class Quest {
     required this.createdAt,
     required this.inProgressCount,
     required this.completeCount,
+    required this.status,
   });
 
   factory Quest.fromMap(Map<String, dynamic> map) {
@@ -69,6 +71,7 @@ class Quest {
       createdAt: DateTime.parse(map['createdAt']),
       completeCount: map['completeCount'] as int,
       inProgressCount: map['inProgressCount'] as int,
+      status: map['status'] as String,
     );
   }
 }

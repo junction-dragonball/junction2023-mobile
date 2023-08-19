@@ -2,21 +2,23 @@ import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:yummy_quest/app/domain/models/quest.dart';
 
-class FetchQuestUseCase {
+class ConfirmQuestUseCase {
   Future<void> call({
-    required String id,
+    required String questId,
     required void Function(Quest quest) onSuccess,
     required void Function() onFail,
   }) async {
     try {
       final dio = Get.find<Dio>();
-      final res = await dio.get('https://dragonball-junction.azurewebsites.net/quest/$id');
+      await dio.post('https://dragonball-junction.azurewebsites.net/quest/${questId}/init');
+      final res = await dio.get('https://dragonball-junction.azurewebsites.net/quest/${questId}');
       final data = Map<String, dynamic>.from(res.data);
       final Quest quest = Quest.fromMap(data);
       onSuccess(quest);
       return;
     } catch (e) {
       onFail();
+      // return;
       rethrow;
     }
   }
