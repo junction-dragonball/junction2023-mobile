@@ -31,7 +31,7 @@ class Restaurant {
   final double rating;
   final double latitude;
   final double longitude;
-  final String kakaoMapId;
+  final String? kakaoMapId;
   final bool available;
   final List<RestaurantMenu> menus;
 
@@ -55,7 +55,7 @@ class Restaurant {
       rating: map['rating'] as double,
       latitude: map['latitude'].toDouble(),
       longitude: map['longitude'].toDouble(),
-      kakaoMapId: map['kakaoMapId'] as String,
+      kakaoMapId: map['kakaoMapId'] as String?,
       available: map['available'] as bool,
       menus: map['menus']
           .map<RestaurantMenu>((e) => RestaurantMenu.fromMap(e))

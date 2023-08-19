@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       getPages: GetPages.pages,
-      initialRoute: RouteNames.MAIN,
+      initialRoute: RouteNames.SPLASH,
     );
   }
 }

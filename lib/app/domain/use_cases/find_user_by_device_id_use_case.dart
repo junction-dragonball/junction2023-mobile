@@ -7,12 +7,15 @@ class FindUserByDeviceIdUseCase {
     required void Function(User user) onSuccess,
     required void Function() onFail,
   }) async {
+    final dio = Dio();
     try {
       final deviceInfoPlugin = DeviceInfoPlugin();
       final deviceInfo = await deviceInfoPlugin.deviceInfo;
       final allInfo = deviceInfo.data;
       final deviceId = allInfo['identifierForVendor'];
-      final dio = Dio();
+      dio.options.headers = {
+        'Authorization': '${deviceId}',
+      };
       final res = await dio.get('https://dragonball-junction.azurewebsites.net/user/${deviceId}');
       final data = Map<String, dynamic>.from(res.data);
       final user = User.fromMap(data);

@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 
 abstract class RouteNames {
+  static const String SPLASH = '/';
   static const String MAIN = '/main';
   static const String QUEST_DETAIL = '/quest_detail';
   static const String RESTAURANT_DETAIL = '/restaurant_detail';

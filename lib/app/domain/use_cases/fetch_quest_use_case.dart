@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:get/get.dart';
 import 'package:yummy_quest/app/domain/models/quest.dart';
 
 class FetchQuestUseCase {
@@ -8,7 +9,7 @@ class FetchQuestUseCase {
     required void Function() onFail,
   }) async {
     try {
-      final dio = Dio();
+      final dio = Get.find<Dio>();
       final res = await dio.get('https://dragonball-junction.azurewebsites.net/quest/$id');
       final data = Map<String, dynamic>.from(res.data);
       final Quest quest = Quest.fromMap(data);
