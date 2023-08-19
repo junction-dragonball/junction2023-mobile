@@ -2,6 +2,7 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
 import 'package:yummy_quest/app/domain/models/user.dart';
 import 'package:yummy_quest/app/domain/use_cases/find_user_by_device_id_use_case.dart';
+import 'package:yummy_quest/app/presentation/widgets/success_dialog.dart';
 
 class MainIndexedStackScreenController extends GetxController {
   final FindUserByDeviceIdUseCase _findUserByDeviceIdUseCase;
@@ -21,6 +22,15 @@ class MainIndexedStackScreenController extends GetxController {
 
   void onBottomNavItemTap(int index) {
     if (index == 2) {
+      Future.delayed(Duration(seconds: 3)).then((value) => Get.back());
+      Get.dialog(
+        ImageDialog(
+          text: 'Not yet... :(',
+          type: ImageDialogType.warning,
+        ),
+        barrierDismissible: false,
+      );
+
       return;
     }
     currentIndex(index);
@@ -30,14 +40,12 @@ class MainIndexedStackScreenController extends GetxController {
 
   void updateUser() async {
     await _findUserByDeviceIdUseCase(
-      onSuccess: (user){
+      onSuccess: (user) {
         this.user(user);
       },
-      onFail: (){
+      onFail: () {
         print('update user fail');
       },
     );
   }
-
-
 }

@@ -61,7 +61,11 @@ class QuestDetailScreenController extends GetxController {
             Get.back();
             Future.delayed(Duration(seconds: 3)).then((value) => Get.back());
             Get.dialog(
-              SuccessDialog(text: 'Quest is Completed!', runConfetti: true),
+              ImageDialog(
+                text: 'Rewarded!',
+                runConfetti: true,
+                type: ImageDialogType.rewarded,
+              ),
               barrierDismissible: false,
             );
           },

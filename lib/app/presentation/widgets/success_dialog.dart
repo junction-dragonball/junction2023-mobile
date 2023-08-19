@@ -4,21 +4,23 @@ import 'package:yummy_quest/app/presentation/widgets/gap_layout.dart';
 import 'package:yummy_quest/core/themes/color_theme.dart';
 import 'package:yummy_quest/core/themes/text_theme.dart';
 
-class SuccessDialog extends StatefulWidget {
+class ImageDialog extends StatefulWidget {
   final String text;
   final bool? runConfetti;
+  final ImageDialogType type;
 
-  const SuccessDialog({
+  const ImageDialog({
     Key? key,
     required this.text,
     this.runConfetti = false,
+    this.type = ImageDialogType.completed,
   }) : super(key: key);
 
   @override
-  State<SuccessDialog> createState() => _SuccessDialogState();
+  State<ImageDialog> createState() => _ImageDialogState();
 }
 
-class _SuccessDialogState extends State<SuccessDialog> {
+class _ImageDialogState extends State<ImageDialog> {
   late ConfettiController _confettiController;
 
   @override
@@ -81,7 +83,7 @@ class _SuccessDialogState extends State<SuccessDialog> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Image.asset(
-                    'assets/icons/green_filled_check.png',
+                    widget.type.asset,
                     width: 64,
                     height: 64,
                   ),
@@ -94,4 +96,14 @@ class _SuccessDialogState extends State<SuccessDialog> {
       ),
     );
   }
+}
+
+enum ImageDialogType {
+  completed('assets/icons/green_filled_check.png'),
+  rewarded('assets/icons/yellow_filled_gem.png'),
+  warning('assets/icons/orange_filled_warning.png');
+
+  const ImageDialogType(this.asset);
+
+  final String asset;
 }

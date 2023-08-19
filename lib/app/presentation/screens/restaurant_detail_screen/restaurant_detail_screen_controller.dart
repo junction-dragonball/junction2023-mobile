@@ -20,7 +20,7 @@ class RestaurantDetailScreenController extends GetxController {
     Get.back();
     Future.delayed(Duration(seconds: 1)).then((value) => Get.back());
     Get.dialog(
-      SuccessDialog(text: 'Claimed Coupon!'),
+      ImageDialog(text: 'Claimed Coupon!'),
       barrierDismissible: false,
     );
   }
