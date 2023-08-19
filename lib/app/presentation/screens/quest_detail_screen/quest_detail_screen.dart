@@ -1,5 +1,8 @@
+import 'dart:ui';
+
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:yummy_quest/app/presentation/widgets/chip.dart';
 import 'package:yummy_quest/app/presentation/widgets/gap_layout.dart';
 import 'package:yummy_quest/core/themes/color_theme.dart';
 import 'package:yummy_quest/core/themes/text_theme.dart';
@@ -14,9 +17,12 @@ class QuestDetailScreen extends GetView<QuestDetailScreenController> {
       child: Scaffold(
         key: controller.scaffoldKey,
         appBar: CustomAppBar(),
+        extendBodyBehindAppBar: true,
         body: Stack(
           children: [
             SingleChildScrollView(
+              padding:
+                  EdgeInsets.only(top: 64 + Get.window.padding.top / Get.window.devicePixelRatio),
               child: GetBuilder<QuestDetailScreenController>(builder: (controller) {
                 final isLoading = controller.isLoading;
                 return Column(
@@ -89,27 +95,53 @@ class QuestDetailScreen extends GetView<QuestDetailScreenController> {
             ),
             Align(
               alignment: Alignment.bottomCenter,
-              child: Container(
-                width: double.infinity,
-                color: Colors.transparent,
-                padding: const EdgeInsets.all(24.0),
-                child: GestureDetector(
-                  onTap: () {
-                    controller.onAcceptQuestButtonTap(context);
-                  },
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 24,
-                      horizontal: 24,
-                    ),
-                    color: Colors.black,
-                    child: Text(
-                      '퀘스트 수락',
-                      style: TextStyle(color: Colors.white),
-                      textAlign: TextAlign.center,
+              child: GapColumn(
+                gap: 8,
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  if(!controller.isLoading)
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Container(
+                      padding: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(6),
+                        color: MyColors.PaleYellow,
+                      ),
+                      child: Text(
+                        '${controller.quest.inProgressCount} peoples are already in progress 🔥',
+                        textAlign: TextAlign.center,
+                      ),
                     ),
                   ),
-                ),
+                  Container(
+                    color: Colors.transparent,
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0).copyWith(
+                      bottom: 16 + Get.window.padding.bottom / Get.window.devicePixelRatio,
+                    ),
+                    child: GestureDetector(
+                      onTap: () {
+                        controller.onAcceptQuestButtonTap(context);
+                      },
+                      child: Container(
+                        height: 56,
+                        padding: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          color: Colors.black,
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Center(
+                          child: Text(
+                            'Accept Quest!',
+                            style: MyTextStyles.Medium_w600.white,
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
           ],
@@ -244,111 +276,47 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          children: [
-            Container(
-              height: 48,
-              width: 48,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                color: MyColors.Dim200,
-              ),
-              child: IconButton(
-                onPressed: Get.back,
-                icon: Icon(Icons.arrow_back),
-              ),
+    return ClipRRect(
+      child: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 16, sigmaY: 16),
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: [
+                Container(
+                  height: 48,
+                  width: 48,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    color: MyColors.Dim200,
+                  ),
+                  child: IconButton(
+                    onPressed: Get.back,
+                    icon: Icon(Icons.arrow_back),
+                  ),
+                ),
+                Spacer(),
+                Container(
+                  height: 48,
+                  width: 48,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    color: MyColors.Dim200,
+                  ),
+                  child: IconButton(
+                    onPressed: Get.back,
+                    icon: Icon(Icons.ios_share_outlined),
+                  ),
+                ),
+              ],
             ),
-            Spacer(),
-            Container(
-              height: 48,
-              width: 48,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                color: MyColors.Dim200,
-              ),
-              child: IconButton(
-                onPressed: Get.back,
-                icon: Icon(Icons.ios_share_outlined),
-              ),
-            ),
-          ],
+          ),
         ),
       ),
     );
   }
 
   @override
-  // TODO: implement preferredSize
   Size get preferredSize => Size.fromHeight(64);
-}
-
-class DifficultyChip extends StatelessWidget {
-  final int difficulty;
-
-  const DifficultyChip({
-    required this.difficulty,
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final _backgroundColors = [
-      Color(0xFFDAEDEB),
-      Color(0xFFF3FAEE),
-      Color(0xFFFFF4EA),
-      Color(0xFFFEE3E3)
-    ];
-    final _textColors = [
-      Color(0xFF3DAB9E),
-      Color(0xFF70A64A),
-      Color(0xFFF89132),
-      Color(0xFFE84545)
-    ];
-    final _texts = ['EASY', 'NORMAL', 'HARD', 'VERY HARD'];
-
-    return CustomChip(
-      backgroundColor: _backgroundColors[difficulty - 2],
-      textColor: _textColors[difficulty - 2],
-      text: _texts[difficulty - 2],
-      isLarge: true,
-    );
-  }
-}
-
-class CustomChip extends StatelessWidget {
-  final Color backgroundColor;
-  final Color textColor;
-  final String text;
-  final isLarge;
-
-  const CustomChip({
-    required this.backgroundColor,
-    required this.textColor,
-    required this.text,
-    this.isLarge = false,
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: isLarge ? 32 : 24,
-      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-      decoration: BoxDecoration(
-        color: backgroundColor,
-        borderRadius: BorderRadius.circular(6),
-      ),
-      child: Center(
-        child: Text(
-          text,
-          style: isLarge
-              ? MyTextStyles.Small_w800.copyWith(color: textColor)
-              : MyTextStyles.Tiny_w800.copyWith(color: textColor),
-        ),
-      ),
-    );
-  }
 }
