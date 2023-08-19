@@ -70,7 +70,7 @@ flutter:
     - assets/images/
 
   fonts:
-    - family: pretendard
+    - family: Pretendard
       fonts:
         - asset: assets/fonts/Pretendard-Black.otf
           weight: 900
@@ -92,7 +92,7 @@ flutter:
           weight: 100
     - family: YummyIcon
       fonts:
-        - asset: assets/fonts/YummyIcon.ttf
+        - asset: assets/icons/YummyIcon.ttf
 
 flutter_native_splash:
   android: true
