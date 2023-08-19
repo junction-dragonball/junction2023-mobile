@@ -7,6 +7,7 @@ import 'package:yummy_quest/core/themes/text_theme.dart';
 import 'package:yummy_quest/pixels/components/button.dart';
 import 'package:yummy_quest/pixels/elements/icon.dart';
 import 'package:yummy_quest/pixels/styles/color.dart';
+import 'package:yummy_quest/pixels/styles/letter.dart';
 
 // ignore: unused_import
 import 'in_progress_quest_screen_controller.dart';
@@ -16,10 +17,8 @@ class InProgressQuestScreen extends GetView<InProgressQuestScreenController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: MyColors.Black,
-      appBar: _CustomAppBar(),
-      body: ListView.builder(
+    Widget buildOnGoingQuests() {
+      return ListView.builder(
         itemCount: controller.questSummaries.length,
         itemBuilder: (BuildContext ctx, int index) {
           final questSummary = controller.questSummaries[index];
@@ -99,8 +98,23 @@ class InProgressQuestScreen extends GetView<InProgressQuestScreenController> {
             ),
           );
         },
-      ),
-    );
+      );
+    }
+
+    return Scaffold(
+        backgroundColor: MyColors.Black,
+        appBar: _CustomAppBar(),
+        body: controller.questSummaries.length == 0
+            ? Container(
+                width: double.infinity,
+                margin: EdgeInsets.symmetric(vertical: 40),
+                child: Text(
+                  'There is no ongoing quest.',
+                  style: LetterPixel.small.regular.withColor(ColorPixel.dim.shade400),
+                  textAlign: TextAlign.center,
+                ),
+              )
+            : buildOnGoingQuests());
   }
 }
 
