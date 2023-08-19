@@ -21,7 +21,7 @@ class SplashScreenController extends GetxController {
             'Authorization': '${user.id}',
           },
         );
-        Get.put<Dio>(dio);
+        Get.put<Dio>(dio, permanent: true);
         Get.offAllNamed(RouteNames.MAIN);
       },
       onFail: () {
