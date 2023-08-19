@@ -4,6 +4,8 @@ import 'package:yummy_quest/core/themes/color_theme.dart';
 import 'package:yummy_quest/core/themes/text_theme.dart';
 import 'yummy_quest_screen_controller.dart';
 
+const isOngoingFiltered = false;
+
 class YummyQuestScreen extends GetView<YummyQuestScreenController> {
   const YummyQuestScreen({Key? key}) : super(key: key);
 
@@ -67,11 +69,16 @@ class YummyQuestScreen extends GetView<YummyQuestScreenController> {
         if (controller.isLoading) {
           return Center(child: CircularProgressIndicator());
         }
+
+        var questsToShow = controller.questSummaries
+            .where(
+                (quest) => quest.status == 'IN_PROGRESS' || !isOngoingFiltered)
+            .toList();
         return ListView.builder(
           shrinkWrap: true,
-          itemCount: controller.questSummaries.length,
+          itemCount: questsToShow.length,
           itemBuilder: (BuildContext ctx, int index) {
-            final questSummaries = controller.questSummaries[index];
+            final quest = questsToShow[index];
             return Padding(
               padding: const EdgeInsets.only(bottom: 2.0),
               child: GestureDetector(
@@ -90,7 +97,7 @@ class YummyQuestScreen extends GetView<YummyQuestScreenController> {
                     child: Row(
                       children: [
                         Hero(
-                          tag: questSummaries.id,
+                          tag: quest.id,
                           child: Container(
                             height: 64,
                             width: 64,
@@ -99,7 +106,7 @@ class YummyQuestScreen extends GetView<YummyQuestScreenController> {
                               borderRadius: BorderRadius.circular(32),
                               image: DecorationImage(
                                 image: NetworkImage(
-                                  questSummaries.thumbnailUrl,
+                                  quest.thumbnailUrl,
                                 ),
                               ),
                             ),
@@ -110,20 +117,22 @@ class YummyQuestScreen extends GetView<YummyQuestScreenController> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
-                                Text(questSummaries.title,
+                                Text(quest.title,
                                     style: MyTextStyles.Medium_w600),
                                 SizedBox(height: 4),
-                                Text(
-                                  questSummaries.shortDescription,
-                                  overflow: TextOverflow.clip,
-                                  style: MyTextStyles.Small_w400.copyWith(
-                                      color: MyColors.Dim600),
-                                  maxLines: 2,
-                                ),
+                                SizedBox(
+                                    height: 32,
+                                    child: Text(
+                                      quest.shortDescription,
+                                      overflow: TextOverflow.clip,
+                                      style: MyTextStyles.Small_w400.copyWith(
+                                          color: MyColors.Dim600),
+                                      maxLines: 2,
+                                    )),
                                 SizedBox(height: 20),
                                 Row(
                                   children: [
-                                    if (questSummaries.id == '1') ...[
+                                    if (quest.id == '1') ...[
                                       Container(
                                         padding: EdgeInsets.symmetric(
                                             horizontal: 8, vertical: 4),
@@ -142,41 +151,32 @@ class YummyQuestScreen extends GetView<YummyQuestScreenController> {
                                         padding: EdgeInsets.symmetric(
                                             horizontal: 8, vertical: 4),
                                         decoration: BoxDecoration(
-                                            color: Color(questSummaries
-                                                        .difficulty ==
-                                                    1
+                                            color: Color(quest.difficulty == 1
                                                 ? 0xFFDAEDEB
-                                                : questSummaries.difficulty == 2
+                                                : quest.difficulty == 2
                                                     ? 0xFFF3FAEE
-                                                    : questSummaries
-                                                                .difficulty ==
-                                                            3
+                                                    : quest.difficulty == 3
                                                         ? 0xFFFFF4EA
                                                         : 0xFFFEE3E3),
                                             borderRadius:
                                                 BorderRadius.circular(4)),
                                         child: Text(
-                                            questSummaries.difficulty == 1
+                                            quest.difficulty == 1
                                                 ? 'EASY'
-                                                : questSummaries.difficulty == 2
+                                                : quest.difficulty == 2
                                                     ? 'NORMAL'
-                                                    : questSummaries
-                                                                .difficulty ==
-                                                            3
+                                                    : quest.difficulty == 3
                                                         ? 'HARD'
                                                         : 'VERY HARD',
                                             style:
                                                 MyTextStyles.Tiny_w800.copyWith(
-                                                    color: Color(questSummaries
+                                                    color: Color(quest
                                                                 .difficulty ==
                                                             1
                                                         ? 0xFF3DAB9E
-                                                        : questSummaries
-                                                                    .difficulty ==
-                                                                2
+                                                        : quest.difficulty == 2
                                                             ? 0xFF70A64A
-                                                            : questSummaries
-                                                                        .difficulty ==
+                                                            : quest.difficulty ==
                                                                     3
                                                                 ? 0xFFF89132
                                                                 : 0xFFE84545))))
