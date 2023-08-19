@@ -38,6 +38,7 @@ class Restaurant {
   final String editorComment;
   final int originalPrice;
   final int discountPrice;
+  final String mapImageUrl;
 
   const Restaurant({
     required this.id,
@@ -53,6 +54,7 @@ class Restaurant {
     required this.naverMapId,
     required this.available,
     required this.menus,
+    required this.mapImageUrl,
   });
 
   factory Restaurant.fromMap(Map<String, dynamic> map) {
@@ -72,6 +74,7 @@ class Restaurant {
       menus: map['menus']
           .map<RestaurantMenu>((e) => RestaurantMenu.fromMap(e))
           .toList(),
+      mapImageUrl: map['mapImageUrl'] as String,
     );
   }
 }

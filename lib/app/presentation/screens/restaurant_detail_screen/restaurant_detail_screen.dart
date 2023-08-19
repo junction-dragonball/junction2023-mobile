@@ -190,7 +190,19 @@ class RestaurantDetailScreen extends GetView<RestaurantDetailScreenController> {
                               style: MyTextStyles.Large_w600,
                             ),
                             const SizedBox(height: 16),
-                            // todo 이미지 넣기
+                            Container(
+                              height: 218,
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12),
+                                image: DecorationImage(
+                                  fit: BoxFit.cover,
+                                  image: NetworkImage(
+                                    controller.restaurant.mapImageUrl,
+                                  ),
+                                ),
+                              ),
+                            ),
                             const SizedBox(height: 8),
                             GestureDetector(
                                 onTap: () {
