@@ -89,3 +89,18 @@ flutter:
           weight: 200
         - asset: assets/fonts/Pretendard-Thin.otf
           weight: 100
+
+flutter_native_splash:
+  android: true
+  ios: true
+  web: false
+
+  # ~ Light Theme
+  color: '#FEFEFF'
+  image: assets/images/imgSplashLogo.png
+  # branding: assets/images/imgSplashBranding.png
+
+  # ~ Dark Theme
+  # color_dark: '#0F0F10'
+  # image_dark: assets/images/imgSplashLogoDark.png
+  # branding_dark: assets/images/imgSplashBrandingDark.png
