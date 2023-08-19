@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:yummy_quest/app/domain/models/restaurant.dart';
 import 'package:yummy_quest/app/domain/use_cases/fetch_restaurants_use_case.dart';
+import 'package:yummy_quest/app/presentation/screens/main_indexed_stack_screen/main_indexed_stack_screen_controller.dart';
 import 'package:yummy_quest/routes/named_routes.dart';
 
 class YummyDealScreenController extends GetxController {
@@ -11,6 +12,7 @@ class YummyDealScreenController extends GetxController {
   }) : _fetchRestaurantsUseCase = fetchRestaurantsUseCase;
 
   bool isLoading = true;
+  int get points => Get.find<MainIndexedStackScreenController>().user.value.points;
 
   List<Restaurant> restaurants = [];
 

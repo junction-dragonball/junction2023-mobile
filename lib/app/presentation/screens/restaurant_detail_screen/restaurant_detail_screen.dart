@@ -204,14 +204,15 @@ class RestaurantDetailScreen extends GetView<RestaurantDetailScreenController> {
                             const SizedBox(height: 8),
                             GestureDetector(
                                 onTap: () {
-                                  print(controller.restaurant.naverMapId +
-                                      ' hihi');
-                                  launchUrl(
-                                      Uri(
-                                          scheme: 'https',
-                                          path: controller.restaurant.naverMapId
-                                              .split('//')[1]),
-                                      mode: LaunchMode.externalApplication);
+                                  launch("nmap://route/public?dlat=" +
+                                      controller.restaurant.latitude
+                                          .toString() +
+                                      '&dlng=' +
+                                      controller.restaurant.longitude
+                                          .toString() +
+                                      '&dname=' +
+                                      controller.restaurant.name +
+                                      '&appname=com.yummyQuest.dragonBall');
                                 },
                                 child: Container(
                                   width: double.infinity,

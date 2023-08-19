@@ -12,13 +12,15 @@ class YummyQuestScreenController extends GetxController {
   }) : _fetchQuestsUseCase = fetchQuestsUseCase;
 
   bool isLoading = true;
+  int get points => Get.find<MainIndexedStackScreenController>().user.value.points;
 
   final RxInt progressQuestCount = 0.obs;
 
   void onActionTap() async {
     await Get.toNamed(
       RouteNames.Maker(nextRoute: RouteNames.IN_PROGRESS_QUEST),
-      arguments: questSummaries.where((element) => element.status == "IN_PROGRESS"),
+      arguments:
+          questSummaries.where((element) => element.status == "IN_PROGRESS"),
     );
     Get.find<MainIndexedStackScreenController>().updateUser();
     await _fetchQuestsUseCase(
@@ -42,8 +44,9 @@ class YummyQuestScreenController extends GetxController {
     await _fetchQuestsUseCase(
       onSuccess: (questSummaries) {
         this.questSummaries = questSummaries;
-        progressQuestCount(
-            questSummaries.where((element) => element.status == "IN_PROGRESS").length);
+        progressQuestCount(questSummaries
+            .where((element) => element.status == "IN_PROGRESS")
+            .length);
       },
       onFail: () {
         print('실패했음 ㅜㅜ');
