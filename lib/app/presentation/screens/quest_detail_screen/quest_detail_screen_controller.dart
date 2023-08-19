@@ -4,6 +4,8 @@ import 'package:yummy_quest/app/domain/models/quest.dart';
 import 'package:yummy_quest/app/domain/models/quest_summary.dart';
 import 'package:yummy_quest/app/domain/use_cases/fetch_quest_use_case.dart';
 import 'package:yummy_quest/app/presentation/widgets/gap_layout.dart';
+import 'package:yummy_quest/core/themes/color_theme.dart';
+import 'package:yummy_quest/core/themes/text_theme.dart';
 
 class QuestDetailScreenController extends GetxController {
   final FetchQuestUseCase _fetchQuestUseCase;
@@ -16,34 +18,50 @@ class QuestDetailScreenController extends GetxController {
   void onAcceptQuestButtonTap(BuildContext context) {
     Get.bottomSheet(
       Material(
+        color: Colors.transparent,
         child: Container(
-          padding: const EdgeInsets.all(12),
-          child: GapColumn(
-            gap: 12,
+          padding: const EdgeInsets.all(24),
+          decoration: BoxDecoration(
+            color: MyColors.White,
+            borderRadius: BorderRadius.vertical(
+              top: Radius.circular(24),
+            ),
+          ),
+          child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Text('어떻게 하면 되나요?', style: TextStyle(fontSize: 24)),
-              ...List.generate(instructions.length, (index) {
-                return _CustomListTile(
-                  index: index,
-                  text: instructions[index],
-                );
-              }).toList(),
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 12.0,
-                  vertical: 24.0,
+              Text('What Should I Do?',
+                  textAlign: TextAlign.center, style: MyTextStyles.Medium_w800),
+              Container(
+                  padding: EdgeInsets.only(top: 24, bottom: 40),
+                  child: GapColumn(
+                    children: [
+                      ...List.generate(instructions.length, (index) {
+                        return _CustomListTile(
+                          index: index,
+                          text: instructions[index],
+                        );
+                      }).toList(),
+                    ],
+                    gap: 20,
+                  )),
+              Container(
+                height: 56,
+                margin: EdgeInsets.only(bottom: 16),
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: MyColors.Dim200,
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(12),
+                  ),
                 ),
                 child: GestureDetector(
                   onTap: Get.back,
                   child: Container(
-                    color: Colors.black,
-                    padding: const EdgeInsets.symmetric(vertical: 20),
                     child: Text(
-                      '확인',
-                      style: TextStyle(color: Colors.white),
-                      textAlign: TextAlign.center,
+                      'Confirm',
+                      style: MyTextStyles.Medium_w600,
                     ),
                   ),
                 ),
@@ -91,17 +109,22 @@ class _CustomListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GapRow(
-      gap: 4,
+      gap: 16,
       children: [
         CircleAvatar(
-          backgroundColor: Colors.grey,
-          radius: 20,
+          backgroundColor: MyColors.Dim900,
+          radius: 12,
           child: Text(
             (index + 1).toString(),
-            style: TextStyle(color: Colors.black),
+            style: MyTextStyles.Tiny_w800.copyWith(color: MyColors.White),
           ),
         ),
-        Expanded(child: Text(text)),
+        Expanded(
+          child: Text(
+            text,
+            style: MyTextStyles.Medium_w400.copyWith(color: MyColors.Dim800),
+          ),
+        ),
       ],
     );
   }
