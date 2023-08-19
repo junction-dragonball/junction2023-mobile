@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:yummy_quest/app/presentation/widgets/difficulty_circles.dart';
 import 'package:yummy_quest/app/presentation/widgets/gap_layout.dart';
 import 'package:yummy_quest/core/themes/color_theme.dart';
 import 'package:yummy_quest/core/themes/text_theme.dart';
@@ -14,19 +13,23 @@ class YummyQuestScreen extends GetView<YummyQuestScreenController> {
     return Scaffold(
       backgroundColor: MyColors.Black,
       appBar: AppBar(
-        title: Text('Quests'),
-        centerTitle: true,
+        backgroundColor: Colors.transparent,
+        title: Text('Quests 📜',
+            style: MyTextStyles.Giant_w800.copyWith(color: MyColors.White)),
         actions: [
           Center(
             child: Container(
               color: Colors.grey,
               padding: const EdgeInsets.all(4),
-              child: GapRow(
-                gap: 2,
-                children: [
+              child: Container(
+                decoration: BoxDecoration(
+                  color: MyColors.White,
+                  borderRadius: BorderRadius.circular(4),
+                ),
+                child: Row(children: [
                   Icon(Icons.circle),
                   Text('480'),
-                ],
+                ]),
               ),
             ),
           ),
@@ -80,24 +83,78 @@ class YummyQuestScreen extends GetView<YummyQuestScreenController> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
-                                Text(questSummaries.title, style: MyTextStyles.Medium_w600),
+                                Text(questSummaries.title,
+                                    style: MyTextStyles.Medium_w600),
                                 SizedBox(height: 4),
                                 Text(
                                   questSummaries.shortDescription,
                                   overflow: TextOverflow.clip,
-                                  style: MyTextStyles.Small_w400.copyWith(color: MyColors.Dim600),
+                                  style: MyTextStyles.Small_w400.copyWith(
+                                      color: MyColors.Dim600),
                                   maxLines: 2,
                                 ),
                                 SizedBox(height: 20),
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    DifficultyCircles(
-                                      difficulty: questSummaries.difficulty,
-                                      radius: 10,
-                                    ),
+                                    if (questSummaries.id == '1') ...[
+                                      Container(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 8, vertical: 4),
+                                        decoration: BoxDecoration(
+                                            color: Color(0xFFA660FF),
+                                            borderRadius:
+                                                BorderRadius.circular(4)),
+                                        child: Text('New',
+                                            style:
+                                                MyTextStyles.Tiny_w800.copyWith(
+                                                    color: MyColors.White)),
+                                      ),
+                                      SizedBox(width: 4)
+                                    ],
+                                    Container(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 8, vertical: 4),
+                                        decoration: BoxDecoration(
+                                            color: Color(questSummaries
+                                                        .difficulty ==
+                                                    1
+                                                ? 0xFFDAEDEB
+                                                : questSummaries.difficulty == 2
+                                                    ? 0xFFF3FAEE
+                                                    : questSummaries
+                                                                .difficulty ==
+                                                            3
+                                                        ? 0xFFFFF4EA
+                                                        : 0xFFFEE3E3),
+                                            borderRadius:
+                                                BorderRadius.circular(4)),
+                                        child: Text(
+                                            questSummaries.difficulty == 1
+                                                ? 'EASY'
+                                                : questSummaries.difficulty == 2
+                                                    ? 'NORMAL'
+                                                    : questSummaries
+                                                                .difficulty ==
+                                                            3
+                                                        ? 'HARD'
+                                                        : 'VERY HARD',
+                                            style:
+                                                MyTextStyles.Tiny_w800.copyWith(
+                                                    color: Color(questSummaries
+                                                                .difficulty ==
+                                                            1
+                                                        ? 0xFF3DAB9E
+                                                        : questSummaries
+                                                                    .difficulty ==
+                                                                2
+                                                            ? 0xFF70A64A
+                                                            : questSummaries
+                                                                        .difficulty ==
+                                                                    3
+                                                                ? 0xFFF89132
+                                                                : 0xFFE84545))))
                                   ],
-                                ),
+                                )
                               ],
                             ),
                           ),

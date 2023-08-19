@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:yummy_quest/app/presentation/widgets/difficulty_circles.dart';
 import 'package:yummy_quest/app/presentation/widgets/gap_layout.dart';
 import 'quest_detail_screen_controller.dart';
 
@@ -109,11 +108,6 @@ class QuestDetailScreen extends GetView<QuestDetailScreenController> {
                                       gap: 8,
                                       children: [
                                         Text('난이도'),
-                                        DifficultyCircles(
-                                          difficulty: controller
-                                              .questSummary.difficulty,
-                                          radius: 10,
-                                        ),
                                       ],
                                     ),
                                   ),
