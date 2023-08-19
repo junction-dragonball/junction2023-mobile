@@ -18,7 +18,8 @@ class YummyQuestScreen extends GetView<YummyQuestScreenController> {
           elevation: 0,
           toolbarHeight: 64,
           backgroundColor: Colors.transparent,
-          title: Text('Quests 📜', style: MyTextStyles.Giant_w800.copyWith(color: MyColors.White)),
+          title: Text('Quests 📜',
+              style: MyTextStyles.Giant_w800.copyWith(color: MyColors.White)),
           actions: [
             Center(
               child: Container(
@@ -37,8 +38,9 @@ class YummyQuestScreen extends GetView<YummyQuestScreenController> {
                   SizedBox(width: 4),
                   Center(
                       child: Text(
-                    '480',
-                    style: MyTextStyles.Medium_w800.copyWith(color: MyColors.White),
+                    controller.points.toString(),
+                    style: MyTextStyles.Medium_w800.copyWith(
+                        color: MyColors.White),
                   )),
                 ]),
               ),
@@ -52,7 +54,9 @@ class YummyQuestScreen extends GetView<YummyQuestScreenController> {
                     width: 48,
                     height: 48,
                     decoration: BoxDecoration(
-                      color: controller.progressQuestCount == 0 ? MyColors.Dim600 : MyColors.Blue,
+                      color: controller.progressQuestCount == 0
+                          ? MyColors.Dim600
+                          : MyColors.Blue,
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Center(
@@ -122,7 +126,8 @@ class YummyQuestScreen extends GetView<YummyQuestScreenController> {
                             Expanded(
                               child: IntrinsicHeight(
                                 child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.stretch,
                                   children: [
                                     Text(quest.title.replaceAll('(Ad)', ''),
                                         style: MyTextStyles.Medium_w600),
@@ -130,10 +135,12 @@ class YummyQuestScreen extends GetView<YummyQuestScreenController> {
                                     SizedBox(
                                         height: 32,
                                         child: Text(
-                                          quest.shortDescription.replaceAll('(Ad)', ''),
+                                          quest.shortDescription
+                                              .replaceAll('(Ad)', ''),
                                           overflow: TextOverflow.clip,
-                                          style: MyTextStyles.Small_w400.copyWith(
-                                              color: MyColors.Dim600),
+                                          style:
+                                              MyTextStyles.Small_w400.copyWith(
+                                                  color: MyColors.Dim600),
                                           maxLines: 2,
                                         )),
                                     SizedBox(height: 20),
@@ -152,7 +159,8 @@ class YummyQuestScreen extends GetView<YummyQuestScreenController> {
                                             textColor: Color(0xFF7E7E7E),
                                             text: 'AD',
                                           ),
-                                        DifficultyChip(difficulty: quest.difficulty),
+                                        DifficultyChip(
+                                            difficulty: quest.difficulty),
                                       ],
                                     ),
                                   ],

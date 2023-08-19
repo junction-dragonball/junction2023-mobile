@@ -23,7 +23,8 @@ class YummyDealScreen extends GetView<YummyDealScreenController> {
           elevation: 0,
           toolbarHeight: 64,
           backgroundColor: Colors.transparent,
-          title: Text('Places 🗺️', style: MyTextStyles.Giant_w800.copyWith(color: MyColors.White)),
+          title: Text('Places 🗺️',
+              style: MyTextStyles.Giant_w800.copyWith(color: MyColors.White)),
           actions: [
             Center(
               child: Container(
@@ -42,8 +43,9 @@ class YummyDealScreen extends GetView<YummyDealScreenController> {
                   SizedBox(width: 4),
                   Center(
                       child: Text(
-                    '480',
-                    style: MyTextStyles.Medium_w800.copyWith(color: MyColors.White),
+                    controller.points.toString(),
+                    style: MyTextStyles.Medium_w800.copyWith(
+                        color: MyColors.White),
                   )),
                 ]),
               ),
@@ -99,29 +101,36 @@ class YummyDealScreen extends GetView<YummyDealScreenController> {
                             children: [
                               Padding(
                                   padding: const EdgeInsets.only(bottom: 4),
-                                  child: Text(restaurant.name, style: MyTextStyles.Medium_w600)),
+                                  child: Text(restaurant.name,
+                                      style: MyTextStyles.Medium_w600)),
                               Expanded(
                                 child: Text(
                                   restaurant.editorComment,
                                   maxLines: 2,
                                   overflow: TextOverflow.ellipsis,
-                                  style: MyTextStyles.Small_w400.copyWith(color: MyColors.Dim600),
+                                  style: MyTextStyles.Small_w400.copyWith(
+                                      color: MyColors.Dim600),
                                 ),
                               ),
                               Padding(
                                   padding: const EdgeInsets.only(bottom: 16),
                                   child: Text(
-                                    restaurant.menus.map((menu) => menu.name).join(', '),
+                                    restaurant.menus
+                                        .map((menu) => menu.name)
+                                        .join(', '),
                                     overflow: TextOverflow.ellipsis,
-                                    style: MyTextStyles.Tiny_w600.copyWith(color: MyColors.Dim400),
+                                    style: MyTextStyles.Tiny_w600.copyWith(
+                                        color: MyColors.Dim400),
                                   )),
                               GapRow(
                                 gap: 4,
                                 children: [
                                   Container(
                                     child: GapRow(
-                                        padding: const EdgeInsets.only(left: 5, right: 8),
-                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        padding: const EdgeInsets.only(
+                                            left: 5, right: 8),
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
                                         gap: 4,
                                         children: [
                                           IconPixel(
@@ -131,8 +140,9 @@ class YummyDealScreen extends GetView<YummyDealScreenController> {
                                           ),
                                           Text(
                                             restaurant.rating.toString(),
-                                            style: MyTextStyles.Tiny_w800.copyWith(
-                                                color: MyColors.White),
+                                            style:
+                                                MyTextStyles.Tiny_w800.copyWith(
+                                                    color: MyColors.White),
                                           )
                                         ]),
                                     height: 24,
@@ -145,8 +155,10 @@ class YummyDealScreen extends GetView<YummyDealScreenController> {
                                   ),
                                   Container(
                                     child: GapRow(
-                                        padding: const EdgeInsets.only(left: 5, right: 8),
-                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        padding: const EdgeInsets.only(
+                                            left: 5, right: 8),
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
                                         gap: 4,
                                         children: [
                                           IconPixel(
@@ -156,8 +168,9 @@ class YummyDealScreen extends GetView<YummyDealScreenController> {
                                           ),
                                           Text(
                                             (minutes).toString() + " min",
-                                            style: MyTextStyles.Tiny_w800.copyWith(
-                                                color: MyColors.Dim600),
+                                            style:
+                                                MyTextStyles.Tiny_w800.copyWith(
+                                                    color: MyColors.Dim600),
                                           )
                                         ]),
                                     height: 24,
