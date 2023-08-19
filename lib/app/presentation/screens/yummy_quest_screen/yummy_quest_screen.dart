@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:yummy_quest/app/presentation/widgets/gap_layout.dart';
 import 'package:yummy_quest/core/themes/color_theme.dart';
 import 'package:yummy_quest/core/themes/text_theme.dart';
 import 'yummy_quest_screen_controller.dart';
@@ -10,32 +9,60 @@ class YummyQuestScreen extends GetView<YummyQuestScreenController> {
 
   @override
   Widget build(BuildContext context) {
+    var ongoingQuestLength = controller.isLoading
+        ? 0
+        : controller.questSummaries
+            .where((element) => element.status == 'IN_PROGRESS')
+            .length; // todo
     return Scaffold(
       backgroundColor: MyColors.Black,
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        title: Text('Quests 📜',
-            style: MyTextStyles.Giant_w800.copyWith(color: MyColors.White)),
-        actions: [
-          Center(
-            child: Container(
-              color: Colors.grey,
-              padding: const EdgeInsets.all(4),
+          toolbarHeight: 64,
+          backgroundColor: Colors.transparent,
+          title: Text('Quests 📜',
+              style: MyTextStyles.Giant_w800.copyWith(color: MyColors.White)),
+          actions: [
+            Center(
               child: Container(
+                height: 48,
+                padding: const EdgeInsets.symmetric(horizontal: 12),
                 decoration: BoxDecoration(
-                  color: MyColors.White,
-                  borderRadius: BorderRadius.circular(4),
+                  color: MyColors.Dim600,
+                  borderRadius: BorderRadius.circular(12),
                 ),
                 child: Row(children: [
                   Icon(Icons.circle),
-                  Text('480'),
+                  SizedBox(width: 4),
+                  Center(
+                      child: Text(
+                    '480',
+                    style: MyTextStyles.Medium_w800.copyWith(
+                        color: MyColors.White),
+                  )),
                 ]),
               ),
             ),
-          ),
-          const SizedBox(width: 12),
-        ],
-      ),
+            SizedBox(width: 4),
+            Center(
+              child: Container(
+                width: 48,
+                height: 48,
+                decoration: BoxDecoration(
+                  color:
+                      ongoingQuestLength == 0 ? MyColors.Dim600 : MyColors.Blue,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Center(
+                    child: Text(
+                  ongoingQuestLength.toString(),
+                  style: MyTextStyles.Medium_w800.copyWith(
+                      color: MyColors.White.withOpacity(
+                          ongoingQuestLength == 0 ? 0.45 : 1)),
+                )),
+              ),
+            ),
+            SizedBox(width: 8),
+          ]),
       body: GetBuilder<YummyQuestScreenController>(builder: (controller) {
         if (controller.isLoading) {
           return Center(child: CircularProgressIndicator());

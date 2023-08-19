@@ -5,6 +5,7 @@ class QuestSummary {
   final String shortDescription;
   final int difficulty;
   final DateTime createdAt;
+  final String status;
 
   const QuestSummary({
     required this.id,
@@ -13,6 +14,7 @@ class QuestSummary {
     required this.shortDescription,
     required this.difficulty,
     required this.createdAt,
+    required this.status,
   });
 
   factory QuestSummary.fromMap(Map<String, dynamic> map) {
@@ -23,6 +25,7 @@ class QuestSummary {
       shortDescription: map['shortDescription'] as String,
       difficulty: map['difficulty'] as int,
       createdAt: DateTime.parse(map['createdAt'] as String),
+      status: map['status'] as String,
     );
   }
 }
