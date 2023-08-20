@@ -207,7 +207,7 @@ class _QuestWidgetState extends State<QuestWidget> {
                   child: Row(
                     children: [
                       Hero(
-                        tag: 'quest' + widget.quest.id,
+                        tag: 'quest' + widget.quest.id + 'first',
                         child: Container(
                           height: 64,
                           width: 64,
