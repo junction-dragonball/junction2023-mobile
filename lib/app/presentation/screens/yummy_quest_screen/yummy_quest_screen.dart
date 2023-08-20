@@ -24,7 +24,13 @@ class YummyQuestScreen extends GetView<YummyQuestScreenController> {
           elevation: 0,
           toolbarHeight: 64,
           backgroundColor: Colors.transparent,
-          title: Text('Quests 📜', style: MyTextStyles.Giant_w800.copyWith(color: MyColors.White)),
+          title: GestureDetector(
+              behavior: HitTestBehavior.translucent,
+              onLongPress: () {
+                controller.onResetQuest();
+              },
+              child: Text('Quests 📜',
+                  style: MyTextStyles.Giant_w800.copyWith(color: MyColors.White))),
           actions: [
             Center(
               child: Container(
@@ -148,8 +154,6 @@ class _QuestWidgetState extends State<QuestWidget> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-
-
   }
 
   void _onTap() {

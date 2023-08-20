@@ -19,6 +19,7 @@ class QuestDetailScreenController extends GetxController {
   final ConfirmQuestUseCase _confirmQuestUseCase;
   final GetRewardUseCase _getRewardUseCase;
   final TakeAPhotoUseCase _takeAPhotoUseCase;
+
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   QuestDetailScreenController({
