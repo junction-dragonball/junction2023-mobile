@@ -43,11 +43,6 @@ abstract class GetPages {
           binding: InProgressQuestScreenBinding(),
         ),
         GetPage(
-          name: RouteNames.MAIN + RouteNames.IN_PROGRESS_QUEST + RouteNames.QUEST_DETAIL,
-          page: () => const QuestDetailScreen(),
-          binding: QuestDetailScreenBinding(),
-        ),
-        GetPage(
           name: RouteNames.MAIN + RouteNames.RESTAURANT_DETAIL,
           page: () => const RestaurantDetailScreen(),
           binding: RestaurantDetailScreenBinding(),

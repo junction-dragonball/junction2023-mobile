@@ -144,13 +144,12 @@ class QuestWidget extends StatefulWidget {
 
 class _QuestWidgetState extends State<QuestWidget> {
   bool isTapped = false;
-  late bool isCompleted;
 
   @override
-  void initState() {
-    super.initState();
+  void didChangeDependencies() {
+    super.didChangeDependencies();
 
-    isCompleted = widget.quest.status == "COMPLETED";
+
   }
 
   void _onTap() {
@@ -179,6 +178,7 @@ class _QuestWidgetState extends State<QuestWidget> {
 
   @override
   Widget build(BuildContext context) {
+    bool isCompleted = widget.quest.status == "COMPLETED";
     return Padding(
       key: ValueKey(widget.quest.id),
       padding: const EdgeInsets.only(bottom: 2.0),
